@@ -60,6 +60,10 @@ public class Shooter extends SubsystemBase{
         
     }
 
+    public void setMotorOppositeWay(){
+        masterMotor.set(-0.2);
+    }
+
     //setRPM(rpm) (PID algoritması falan)
     //getDistanceForRPM() return int distance
 
