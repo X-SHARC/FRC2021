@@ -13,6 +13,8 @@ public class Shooter extends SubsystemBase{
     private Encoder shooterEncoder;
     protected abstract double getMeasurement();
 
+    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
+
 
     private double kP; //proportional
     private double kI; //integral
@@ -21,8 +23,6 @@ public class Shooter extends SubsystemBase{
     private double sP; //setpoint
     private double pV; //Present/process value
     private double error = sP - pV;
-
-    
 
 
     public Shooter(){
@@ -57,10 +57,7 @@ public class Shooter extends SubsystemBase{
 
         PIDController pid = new PIDController(kP,kI,kD);
         masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm));
-
-
         
-        pid.reset();
     }
 
     //setRPM(rpm) (PID algoritması falan)
