@@ -9,13 +9,57 @@ package com.team6838.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class storage extends SubsystemBase {
-  /**
-   * Creates a new storage.
-   */
-  public storage() {
 
-  }
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import com.team6838.Constants;
+
+
+
+
+public class storage extends SubsystemBase {
+ 
+  int storagePortRight = 0;
+  int storagePortLeft = 0;
+  
+  int storageSpeed = 0;
+  int storageSpeed2 = 0;
+
+  private WPI_TalonSRX storageOne = new WPI_TalonSRX (Constants.storagePortRight);
+  
+  private WPI_TalonSRX storagetwo = new WPI_TalonSRX (Constants.storagePortLeft);
+
+  
+
+public void runStorageForward() {
+  storageOne.set(Constants.storageSpeed);
+  storagetwo.set(Constants.storageSpeed);  
+}
+    
+public void runStorageBackward() {
+  storageOne.set(Constants.storageSpeed2);
+  storagetwo.set(Constants.storageSpeed2);
+}
+
+public void runStorage() {
+  storageOne.set(Constants.storageSpeed);
+  storagetwo.set(Constants.storageSpeed);
+}
+
+public void storageStopper() {
+  storageOne.set(0);
+  storagetwo.set(0);
+}
+
+// Topun sıkışması durumunda 
+
+public void storageInverseFix() {
+  storageOne.set(storageSpeed);
+  storagetwo.set(storageSpeed * -1);
+
+
+
+}
 
   @Override
   public void periodic() {
