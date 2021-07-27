@@ -9,6 +9,13 @@ public final class Constants {
 		public static final double kMaxAngularSpeed = Math.PI; // 1/2 rotation per second
 	}
 
+	public static final class Shooter{
+		//ports will be change
+		public static final int k_SHOOTER_MASTER_MOTOR = 0;
+		public static final int k_SHOOTER_SLAVE_MOTOR = 1;
+		
+	}
+
 	public static final boolean kGyroReversed = false;
 
 }
