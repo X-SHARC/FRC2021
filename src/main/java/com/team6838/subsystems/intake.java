@@ -6,20 +6,34 @@ package com.team6838.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.team6838.Constants;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+
 
 public class intake extends SubsystemBase {
   
   public WPI_TalonSRX intake = new WPI_TalonSRX (Constants.intake);
   /** Creates a new intake. */
+  boolean isLocked = false;
+
   public intake() {}
-  public void intakeIn(double scale) { // in
+
+  private static final int kPDPId = 0;
+  private final PowerDistributionPanel m_pdp = new PowerDistributionPanel(kPDPId);
+
+  public void intakeIn (double scale) { 
+    if (!isLocked){
     intake.set(Constants.intakeKForward*scale); // -1
  }
+}
 
   public void intakeOut() {intakeOut(1);};
-  public void intakeOut(double scale) { // out
+  public void intakeOut(double scale) {
+    if (!isLocked) {// out
    intake.set(Constants.intakeKReverse*scale);
+  }
  }
 
   public void intakeStop() {
@@ -36,6 +50,9 @@ public class intake extends SubsystemBase {
 }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+   
+	if (m_pdp.getCurrent(Constants.intakePdpPort) >= Constants.intakeCurrentTreshold) {
+   isLocked = true;
+    }
   }
 }
