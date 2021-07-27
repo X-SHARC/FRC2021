@@ -4,12 +4,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.team6838.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.wpilibj.controller.PIDController;
 
 
 public class Shooter extends SubsystemBase{
     public static WPI_TalonSRX masterMotor;
     public static WPI_VictorSPX slaveMotor;
     private Encoder shooterEncoder;
+    protected abstract double getMeasurement();
+
 
     private double kP; //proportional
     private double kI; //integral
@@ -17,13 +20,9 @@ public class Shooter extends SubsystemBase{
 
     private double sP; //setpoint
     private double pV; //Present/process value
-
     private double error = sP - pV;
 
     
-
-
-    PIDController pid = new PIDController(kP,kI,kD);
 
 
     public Shooter(){
@@ -56,6 +55,12 @@ public class Shooter extends SubsystemBase{
 
     public void setRPM(int rpm){
 
+        PIDController pid = new PIDController(kP,kI,kD);
+        masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm));
+
+
+        
+        pid.reset();
     }
 
     //setRPM(rpm) (PID algoritması falan)
