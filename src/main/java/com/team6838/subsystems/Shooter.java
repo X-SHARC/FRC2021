@@ -42,7 +42,7 @@ public class Shooter extends SubsystemBase{
 
 
 
-    //setRPM(rpm) (PID Algorhytm falan)
+    //setRPM(rpm) (PID algoritması falan)
     //getDistanceForRPM() return int distance
 
 
