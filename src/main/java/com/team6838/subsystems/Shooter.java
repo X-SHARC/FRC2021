@@ -10,7 +10,20 @@ public class Shooter extends SubsystemBase{
     public static WPI_TalonSRX masterMotor;
     public static WPI_VictorSPX slaveMotor;
     private Encoder shooterEncoder;
-    PIDController pid = new PIDController(Constants.kP,Constants.kI,Constants.kD);
+
+    private double kP; //proportional
+    private double kI; //integral
+    private double kD; //derivative
+
+    private double sP; //setpoint
+    private double pV; //Present/process value
+
+    private double error = sP - pV;
+
+    
+
+
+    PIDController pid = new PIDController(kP,kI,kD);
 
 
     public Shooter(){
