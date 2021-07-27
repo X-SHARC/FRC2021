@@ -9,7 +9,6 @@ import com.team6838.Constants;
 import com.team6838.lib.drivers.CKIMU;
 import com.team6838.lib.drivers.NavX;
 import com.team6838.lib.util.SwerveModule;
-
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;

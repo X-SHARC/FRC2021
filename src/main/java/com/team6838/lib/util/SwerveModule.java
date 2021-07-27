@@ -7,7 +7,6 @@ package com.team6838.lib.util;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.team6838.Constants;
-
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -25,7 +24,6 @@ public class SwerveModule {
   private static final double kDriveI = 0.0;
   private static final double kDriveD = 0.0;
   private static final double kDriveF = 0.0; 
-
   private static final double kAngleP = 0.0;
   private static final double kAngleI = 0.0;
   private static final double kAngleD = 0.0;

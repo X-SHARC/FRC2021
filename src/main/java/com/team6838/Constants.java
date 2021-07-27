@@ -11,4 +11,9 @@ public final class Constants {
 
 	public static final boolean kGyroReversed = false;
 
+	public static final int intake_Supporter = 1;
+	public static final double intakeKForward = -1;
+	public static final double intakeKReverse = 1;
+	public static final double intakeStop = 0;
+	public static final double timestamp_Current_0 = 0;
 }
