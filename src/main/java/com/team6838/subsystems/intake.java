@@ -10,29 +10,28 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class intake extends SubsystemBase {
   
-  public WPI_TalonSRX intake_Supporter = new WPI_TalonSRX (Constants.intake_Supporter);
+  public WPI_TalonSRX intake = new WPI_TalonSRX (Constants.intake);
   /** Creates a new intake. */
   public intake() {}
-  public void intakeIn() {intakeIn(1);};
   public void intakeIn(double scale) { // in
-    intake_Supporter.set(Constants.intakeKForward*scale); // -1
+    intake.set(Constants.intakeKForward*scale); // -1
  }
 
   public void intakeOut() {intakeOut(1);};
   public void intakeOut(double scale) { // out
-   intake_Supporter.set(Constants.intakeKReverse*scale);
+   intake.set(Constants.intakeKReverse*scale);
  }
 
   public void intakeStop() {
-   intake_Supporter.set(0);
+   intake.set(0);
  }
 
   public void intakeTrigger(double a, double b) {
   if (Math.abs(a) > Math.abs(b)) {
-    intake_Supporter.set(a*0.57 );
+    intake.set(a*0.57 );
   }
   else {
-    intake_Supporter.set(b*0.85);
+    intake.set(b*0.85);
   }
 }
   @Override
