@@ -10,6 +10,7 @@ public class Shooter extends SubsystemBase{
     public static WPI_TalonSRX masterMotor;
     public static WPI_VictorSPX slaveMotor;
     private Encoder shooterEncoder;
+    PIDController pid = new PIDController(Constants.kP,Constants.kI,Constants.kD);
 
 
     public Shooter(){
@@ -40,7 +41,9 @@ public class Shooter extends SubsystemBase{
         return false;
     }
 
+    public void setRPM(int rpm){
 
+    }
 
     //setRPM(rpm) (PID algoritması falan)
     //getDistanceForRPM() return int distance
