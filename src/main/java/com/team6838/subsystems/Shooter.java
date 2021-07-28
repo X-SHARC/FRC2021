@@ -11,14 +11,15 @@ public class Shooter extends SubsystemBase{
     public static WPI_TalonSRX masterMotor;
     public static WPI_VictorSPX slaveMotor;
     private Encoder shooterEncoder;
-    protected abstract double getMeasurement();
-
-    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Shooter.kS, Constants.Shooter.kV, Constants.Shooter.kA);
-
 
     private double kP; //proportional
     private double kI; //integral
     private double kD; //derivative
+    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Shooter.kS, Constants.Shooter.kV, Constants.Shooter.kA);
+    PIDController pid = new PIDController(kP,kI,kD);
+
+
+    
 
     private double sP; //setpoint
     private double pV; //Present/process value
@@ -45,7 +46,6 @@ public class Shooter extends SubsystemBase{
     public void stop(){
         masterMotor.set(0);
     }
-    //denemegjklerjgkljkljdfgdfgdf
     public boolean isAtRPM(int RPM){
         if(RPM == Shooter.getRPM()){
             return true;
@@ -53,14 +53,12 @@ public class Shooter extends SubsystemBase{
         return false;
     }
 
-    public void shooterFeedForward(){
-
+    public void shooterFeedForward(int rpm){
+        
     }
 
-    public void setRPM(int rpm){
-
-        PIDController pid = new PIDController(kP,kI,kD);
-        masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm));
+    public void setRPM(int rpm){        
+        masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm)+feedforward.calculate(getRPM()/60, rpm/60);        );
         
     }
 
@@ -68,9 +66,6 @@ public class Shooter extends SubsystemBase{
         masterMotor.set(-0.2);
     }
 
-
-
-    //setRPM(rpm) (PID algoritması falan)
     //getDistanceForRPM() return int distance
 
 
