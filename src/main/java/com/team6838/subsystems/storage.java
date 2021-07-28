@@ -18,35 +18,26 @@ import com.team6838.Constants;
 
 
 public class storage extends SubsystemBase {
- 
-  int storagePortRight = 0;
-  int storagePortLeft = 0;
-  
-  int storageSpeed = 0;
-  int storageSpeed2 = 0;
 
-  private WPI_TalonSRX storageOne = new WPI_TalonSRX (Constants.storagePortRight);
-  
-  private WPI_TalonSRX storagetwo = new WPI_TalonSRX (Constants.storagePortLeft);
-
-  
+  private WPI_TalonSRX storageOne = new WPI_TalonSRX (Constants.Storage.storagePortRight);
+  private WPI_TalonSRX storagetwo = new WPI_TalonSRX (Constants.Storage.storagePortLeft);
 
 public void runStorageForward() {
-  storageOne.set(Constants.storageSpeed);
-  storagetwo.set(Constants.storageSpeed);  
+  storageOne.set(Constants.Storage.storageSpeed);
+  storagetwo.set(Constants.Storage.storageSpeed);  
 }
     
-public void runStorageBackward() {
-  storageOne.set(Constants.storageSpeed2);
-  storagetwo.set(Constants.storageSpeed2);
+public void runStorageBackwards() {
+  storageOne.set(-Constants.Storage.storageSpeed);
+  storagetwo.set(-Constants.Storage.storageSpeed);
 }
 
-public void runStorage() {
-  storageOne.set(Constants.storageSpeed);
-  storagetwo.set(Constants.storageSpeed);
+public void runStorage(double speed) {
+  storageOne.set(speed);
+  storagetwo.set(speed);
 }
 
-public void storageStopper() {
+public void stopStorage() {
   storageOne.set(0);
   storagetwo.set(0);
 }
@@ -54,11 +45,8 @@ public void storageStopper() {
 // Topun sıkışması durumunda 
 
 public void storageInverseFix() {
-  storageOne.set(storageSpeed);
-  storagetwo.set(storageSpeed * -1);
-
-
-
+  storageOne.set(Constants.Storage.storageSpeed);
+  storagetwo.set(Constants.Storage.storageSpeed * -1);
 }
 
   @Override
