@@ -13,27 +13,36 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class intake extends SubsystemBase {
+
+  //TODO doubleSolenoid tanımla -> docs.wpilib.org
+  // ! https://github.com/burakdemirelli/X-SHARC--6838-2019/blob/master/comarilyas/src/main/java/frc/robot/subsystems/HatchIntake.java
+  // deployIntake()
+  // retractIntake()
+  // stopEverything() -> rectractIntake(); intakeStop();
+  /*
+  if( piston.get() != DoubleSolenoid.Value.kForward){
+    piston.set(DoubleSolenoid.Value.kForward);
+  }
+  */
   
-  public WPI_TalonSRX intake = new WPI_TalonSRX (Constants.intake);
-  /** Creates a new intake. */
+  private WPI_TalonSRX intake = new WPI_TalonSRX(Constants.intakePort);
   boolean isLocked = false;
+  private final PowerDistributionPanel m_pdp;
 
-  public intake() {}
-
-  private static final int kPDPId = 0;
-  private final PowerDistributionPanel m_pdp = new PowerDistributionPanel(kPDPId);
+  public intake(PowerDistrubutionPanel PDP){
+    this.m_pdp = PDP;
+  }
 
   public void intakeIn (double scale) { 
     if (!isLocked){
     intake.set(Constants.intakeKForward*scale); // -1
- }
+    }
 }
-
-  public void intakeOut() {intakeOut(1);};
+  
   public void intakeOut(double scale) {
     if (!isLocked) {// out
-   intake.set(Constants.intakeKReverse*scale);
-  }
+    intake.set(Constants.intakeKReverse*scale);
+    }
  }
 
   public void intakeStop() {
@@ -42,17 +51,22 @@ public class intake extends SubsystemBase {
 
   public void intakeTrigger(double a, double b) {
   if (Math.abs(a) > Math.abs(b)) {
-    intake.set(a*0.57 );
+    intake.set(a * 0.57);
   }
   else {
-    intake.set(b*0.85);
+    intake.set(b * 0.85);
   }
 }
+
   @Override
   public void periodic() {
-   
-	if (m_pdp.getCurrent(Constants.intakePdpPort) >= Constants.intakeCurrentTreshold) {
-   isLocked = true;
+    if (m_pdp.getCurrent(Constants.intakePdpChannel) >= Constants.intakeCurrentTreshold) {
+      isLocked = true;
+    }
+    else{
+      if(isLocked){
+        isLocked =  false;
+      }
     }
   }
 }
