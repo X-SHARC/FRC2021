@@ -18,9 +18,6 @@ public class Shooter extends SubsystemBase{
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Shooter.kS, Constants.Shooter.kV, Constants.Shooter.kA);
     PIDController pid = new PIDController(kP,kI,kD);
 
-
-    
-
     private double sP; //setpoint
     private double pV; //Present/process value
     private double error = sP - pV;
@@ -58,7 +55,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void setRPM(int rpm){        
-        masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm)+feedforward.calculate(getRPM()/60, rpm/60);        );
+        masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm)+feedforward.calculate(getRPM()/60, rpm/60));
         
     }
 
@@ -68,7 +65,5 @@ public class Shooter extends SubsystemBase{
 
     //getDistanceForRPM() return int distance
 
-
-    
     
 }
