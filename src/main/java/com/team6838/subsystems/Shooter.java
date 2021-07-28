@@ -51,9 +51,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void setRPM(int rpm){        
-        masterMotor.set(pid.calculate(Shooter.getRPM(),rpm)+feedforward.calculate(Shooter.getRPM()/60, rpm/60));
-        shooterEncoder.getRPM();
-        
+        masterMotor.set(pid.calculate(Shooter.getRPM(),rpm)+feedforward.calculate(Shooter.getRPM()/60, rpm/60));        
     }
 
     public void setMotorOppositeWay(){
