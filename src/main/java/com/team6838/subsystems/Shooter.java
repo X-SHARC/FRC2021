@@ -50,10 +50,6 @@ public class Shooter extends SubsystemBase{
         return false;
     }
 
-    public void shooterFeedForward(int rpm){
-        
-    }
-
     public void setRPM(int rpm){        
         masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm)+feedforward.calculate(getRPM()/60, rpm/60));
         
