@@ -15,28 +15,30 @@ public class Shooter extends SubsystemBase{
     private double kP; //proportional
     private double kI; //integral
     private double kD; //derivative
-    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Shooter.kS, Constants.Shooter.kV, Constants.Shooter.kA);
-    PIDController pid = new PIDController(kP,kI,kD);
+    private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Shooter.kS, Constants.Shooter.kV, Constants.Shooter.kA);
+    private PIDController pid = new PIDController(kP,kI,kD);
 
-    private double sP; //setpoint
-    private double pV; //Present/process value
-    private double error = sP - pV;
-
+    private double ENCODER_EDGES_PER_REV = 4096 / 4.;
+    private double encoderConstant = (1 / ENCODER_EDGES_PER_REV);
 
     public Shooter(){
         masterMotor = new WPI_TalonSRX(Constants.Shooter.k_SHOOTER_MASTER_MOTOR);
         slaveMotor = new WPI_VictorSPX(Constants.Shooter.k_SHOOTER_SLAVE_MOTOR);
-        shooterEncoder = = new Encoder(new DigitalInput(Constants.shooterEncoderA),
+        shooterEncoder = new Encoder(new DigitalInput(Constants.shooterEncoderA),
             new DigitalInput(Constants.shooterEncoderB), true, EncodingType.k4X);
-
+        
+        slaveMotor.setInverted(false);
+        masterMotor.setInverted(false);
         slaveMotor.follow(masterMotor);
+
+        shooterEncoder.setDistancePerPulse(encoderConstant);
     }
 
-    public void setpower(double speed){
-        masterMotor.set(speed);
+    public void setPercentage(double percentage){
+        masterMotor.set(percentage); // [-1, 1]
     }
 
-    public void getRPM(){
+    public double getRPM(){
         return shooterEncoder.getRate() * 60.;
     }
 
@@ -44,23 +46,23 @@ public class Shooter extends SubsystemBase{
         masterMotor.set(0);
     }
     public boolean isAtRPM(int RPM){
-        if(RPM == Shooter.getRPM()){
+        if(Math.abs(getRPM() - RPM) <= 100){
             return true;
         }
         return false;
     }
 
+    // ? decide whether we should use PIDcommand or setRPM in the subsystem
     public void setRPM(int rpm){        
-        masterMotor.set(pid.calculate(shooterEncoder.getRPM(),rpm)+feedforward.calculate(Shooter.getRPM()/60, rpm/60));
+        masterMotor.set(
+            pid.calculate(getRPM(), rpm) +
+            feedforward.calculate(getRPM(), rpm)
+            );
         shooterEncoder.getRPM();
-        
     }
 
-    public void setMotorOppositeWay(){
+    public void runBackwards(){
         masterMotor.set(-0.2);
     }
-
-    //getDistanceForRPM() return int distance
-
     
 }
