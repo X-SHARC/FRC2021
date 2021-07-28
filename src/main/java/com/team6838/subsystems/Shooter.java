@@ -13,7 +13,7 @@ public class Shooter extends SubsystemBase{
     private Encoder shooterEncoder;
     protected abstract double getMeasurement();
 
-    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.kS, Constants.kV, Constants.kA);
+    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Shooter.kS, Constants.Shooter.kV, Constants.Shooter.kA);
 
 
     private double kP; //proportional
@@ -45,12 +45,16 @@ public class Shooter extends SubsystemBase{
     public void stop(){
         masterMotor.set(0);
     }
-
+    //deneme
     public boolean isAtRPM(int RPM){
         if(RPM == Shooter.getRPM()){
             return true;
         }
         return false;
+    }
+
+    public void shooterFeedForward(){
+
     }
 
     public void setRPM(int rpm){
@@ -63,6 +67,8 @@ public class Shooter extends SubsystemBase{
     public void setMotorOppositeWay(){
         masterMotor.set(-0.2);
     }
+
+
 
     //setRPM(rpm) (PID algoritması falan)
     //getDistanceForRPM() return int distance
