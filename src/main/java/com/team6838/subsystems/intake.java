@@ -6,6 +6,8 @@ package com.team6838.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.team6838.Constants;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,11 +27,25 @@ public class intake extends SubsystemBase {
   }
   */
   
+
+  private static final int forwardChannel = 0;
+
+public void deployIntake() {
+    solenoidIntake.set(DoubleSolenoid.Value.kReverse);
+
+  }
+  public void retractIntake() {
+    solenoidIntake.set(DoubleSolenoid.Value.kForward);
+
+  }
   private WPI_TalonSRX intake = new WPI_TalonSRX(Constants.intakePort);
   boolean isLocked = false;
+  
+  private DoubleSolenoid solenoidIntake = new DoubleSolenoid(forwardChannel, reverseChannel);
+  
   private final PowerDistributionPanel m_pdp;
-
-  public intake(PowerDistrubutionPanel PDP){
+  
+  public intake(PowerDistributionPanel PDP){
     this.m_pdp = PDP;
   }
 

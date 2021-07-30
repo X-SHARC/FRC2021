@@ -1,5 +1,6 @@
 package com.team6838;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.util.Units;
 
 public final class Constants {
@@ -19,5 +20,6 @@ public final class Constants {
 	public static final double timestamp_Current_0 = 0;
 	public static final int intakePdpChannel = 0;
 	public static final int intakeCurrentTreshold = 3;
-
+	public static final int forwardChannel = 0;
+	public static final int reverseChannel = 0;
 }
