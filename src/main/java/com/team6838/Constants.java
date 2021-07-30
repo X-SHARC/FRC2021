@@ -16,5 +16,8 @@ public final class Constants {
 	}
 
 	public static final boolean kGyroReversed = false;
+	public static final int storagePDPChannel = 0;
+	public static final double storageCurrentThreshold = 0;
+	
 
 }
