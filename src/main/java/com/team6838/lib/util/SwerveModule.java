@@ -106,6 +106,19 @@ public class SwerveModule {
     );
   }
 
+  public void resetRotationEncoder(){
+    rotEncoder.reset();
+  }
+  
+  public void resetDriveEncoder(){
+    driveMotor.setSelectedSensorPosition(0);    
+  }
+
+  public void resetEncoders(){
+    resetDriveEncoder();
+    resetRotationEncoder();
+  }
+
   // TODO Encoder
   // Encoder init - DONE
   // Encoder offset - DONE 
