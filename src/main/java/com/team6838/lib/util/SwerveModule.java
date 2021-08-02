@@ -130,7 +130,7 @@ public class SwerveModule {
     driveMotor.setSelectedSensorPosition(0);    
   }
 
-  public void resetAllEncoders(){
+  public void resetBothEncoders(){
     resetDriveEncoder();
     resetRotationEncoder();
   }
@@ -148,6 +148,7 @@ public class SwerveModule {
    * Set the speed + rotation of the swerve module from a SwerveModuleState object
    * @param desiredState - A SwerveModuleState representing the desired new state of the module
    */
+  // ! NEED TO IMPLEMET THE DRIVEMOTOR PIDF BEFORE TRYING ON REAL HARDWARE
   public void setDesiredState(SwerveModuleState desiredState) {
     Rotation2d currentRotation = getAngle();
     SwerveModuleState state = SwerveModuleState.optimize(desiredState, currentRotation);
