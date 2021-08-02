@@ -11,8 +11,6 @@ public final class Constants {
 	}
 
 	public static final boolean kGyroReversed = false;
-
-	//TODO Create intake class - yiğite bak örnek olarak
 	public static final int intakePort = 1;
 	public static final double intakeKForward = -1;
 	public static final double intakeKReverse = 1;
