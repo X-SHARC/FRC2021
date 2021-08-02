@@ -135,24 +135,10 @@ public class SwerveModule {
     resetRotationEncoder();
   }
 
-  // TODO Encoder
-  // Encoder init - DONE
-  // Encoder offset - DONE 
-  // Encoder getPos - DONE
-
-  // TODO PID
-  // drivePID init (not sure if this is used here? maybe for path?) - DONE 
-  // rotPID init - DONE
-
-  /**
-   * Set the speed + rotation of the swerve module from a SwerveModuleState object
-   * @param desiredState - A SwerveModuleState representing the desired new state of the module
-   */
   // ! NEED TO IMPLEMET THE DRIVEMOTOR PIDF BEFORE TRYING ON REAL HARDWARE
   public void setDesiredState(SwerveModuleState desiredState) {
     Rotation2d currentRotation = getAngle();
     SwerveModuleState state = SwerveModuleState.optimize(desiredState, currentRotation);
-
     // Find the difference between our current rotational position + our new rotational position
     Rotation2d rotationDelta = state.angle.minus(currentRotation);
 

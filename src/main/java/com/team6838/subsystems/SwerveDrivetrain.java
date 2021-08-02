@@ -79,7 +79,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     getHeading()
   );
   
-  /** Creates a new SwerveDrivetrain. */
   public SwerveDrivetrain(CKIMU gyro, boolean isCalibrating) {
     this.isCalibrating = isCalibrating;
     this.gyro = gyro;
