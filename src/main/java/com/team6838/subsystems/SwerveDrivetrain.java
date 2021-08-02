@@ -19,6 +19,11 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDrivetrain extends SubsystemBase {
+
+  private boolean isCalibrating;
+  private boolean offsetCalibration = true;
+  private boolean driveCalibration = true;
+  private boolean rotCalibration = true;
   
   /**
    * TODO: These are example values and will need to be adjusted for your robot!
@@ -64,7 +69,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   };
   
   /** Creates a new SwerveDrivetrain. */
-  public SwerveDrivetrain(CKIMU gyro) {
+  public SwerveDrivetrain(CKIMU gyro, boolean isCalibrating) {
+    this.isCalibrating = isCalibrating;
     this.gyro = gyro;
     gyro.reset();
   }
@@ -100,6 +106,12 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if(isCalibrating){
+      modules[0].calibrate("Front Left", offsetCalibration, driveCalibration, rotCalibration);
+      modules[1].calibrate("Front Right", offsetCalibration, driveCalibration, rotCalibration);
+      modules[2].calibrate("Back Left", offsetCalibration, driveCalibration, rotCalibration);
+      modules[3].calibrate("Back Right", offsetCalibration, driveCalibration, rotCalibration);
+    }
+
   }
 }

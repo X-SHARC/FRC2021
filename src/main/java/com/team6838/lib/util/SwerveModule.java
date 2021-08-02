@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -55,7 +56,7 @@ public class SwerveModule {
   // If using relative, find a way to mechanically zero out wheel headings before starting the robot.
   double wheelCircumference = 2 * Math.PI * Units.inchesToMeters(2);
 
-  private ProfiledPIDController anglePID = 
+  private ProfiledPIDController rotPID = 
     new ProfiledPIDController(
       kAngleP,
       kAngleI,
@@ -64,10 +65,9 @@ public class SwerveModule {
         Constants.Swerve.kMaxSpeed, Constants.Swerve.kModuleMaxAngularAcceleration));
 
   private PIDController drivePID = new PIDController(kDriveP, kDriveI, kDriveD);
-  // TODO IMPLEMENT FeedForward FOR DRIVE
 
-  private final SimpleMotorFeedforward m_driveFeedforward = new SimpleMotorFeedforward(kDriveS, kDriveV);
-  private final SimpleMotorFeedforward m_turnFeedforward = new SimpleMotorFeedforward(kAngleS, kAngleV);
+  private final SimpleMotorFeedforward driveFeedforward = new SimpleMotorFeedforward(kDriveS, kDriveV);
+  private final SimpleMotorFeedforward rotFeedforward = new SimpleMotorFeedforward(kAngleS, kAngleV);
 
   public SwerveModule(TalonFX driveMotor, TalonFX angleMotor, DutyCycleEncoder rotEncoder, Rotation2d offset) {
     this.driveMotor = driveMotor;
@@ -106,6 +106,22 @@ public class SwerveModule {
     );
   }
 
+  public void calibrate(String Name, boolean offsetCalibration, boolean driveCalibration, boolean rotCalibration){
+    if(offsetCalibration){
+      SmartDashboard.putNumber(Name + " Rot Encoder Value", getDegrees());
+      // ? not sure but maybe glass lets you change variables as well
+      // ? if so, you may use it to accurately find the offset
+    }
+    // ? all the values below should be tunable in Glass
+    if(rotCalibration){
+      SmartDashboard.putData(Name + " Rotation PID", rotPID);     
+      // ? can't tune FeedForward in real time
+    }
+    if(driveCalibration){
+      SmartDashboard.putData(Name + " Drive PID", drivePID);
+    }
+  }
+
   public void resetRotationEncoder(){
     rotEncoder.reset();
   }
@@ -114,7 +130,7 @@ public class SwerveModule {
     driveMotor.setSelectedSensorPosition(0);    
   }
 
-  public void resetEncoders(){
+  public void resetAllEncoders(){
     resetDriveEncoder();
     resetRotationEncoder();
   }
@@ -126,7 +142,7 @@ public class SwerveModule {
 
   // TODO PID
   // drivePID init (not sure if this is used here? maybe for path?) - DONE 
-  // anglePID init - DONE
+  // rotPID init - DONE
 
   /**
    * Set the speed + rotation of the swerve module from a SwerveModuleState object
@@ -143,11 +159,11 @@ public class SwerveModule {
 
     angleMotor.set(TalonFXControlMode.PercentOutput, 
         MathUtil.clamp( 
-          ( anglePID.calculate(
+          ( rotPID.calculate(
                 currentRotation.getDegrees(),
                 desiredRotation
                 ) +
-                m_turnFeedforward.calculate(anglePID.getSetpoint().velocity) ), 
+                rotFeedforward.calculate(rotPID.getSetpoint().velocity) ), 
             -1.0, 
             1.0)
     );
