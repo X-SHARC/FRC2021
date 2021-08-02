@@ -89,7 +89,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void resetAllEncoders(){
-    for (int i = 0; i < states.length; i++) {
+    for (int i = 0; i < modules.length; i++) {
       SwerveModule module = modules[i];
       module.resetBothEncoders();
     }
