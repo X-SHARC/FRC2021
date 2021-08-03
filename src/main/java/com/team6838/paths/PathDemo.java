@@ -10,6 +10,7 @@ public class PathDemo {
         // * Position, Velocity, Accelaration, Heading
         // * this is just an example for output
         // ! Actual trajectories should be x, y, rot
+        // ? might wanna add v to set the end and start velocity
         {0,0,0,0.0002},
         {0.0001,0.0124,1.1991,0.0011},
         {0.0004,0.0249,1.2175,0.0032},

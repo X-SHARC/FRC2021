@@ -30,7 +30,10 @@ public final class Constants {
 	}
 
 	public static final class Trajectory{
-		
+
+		public static final double maxVelocityMetersPerSecond = 0;
+		public static final double maxAccelerationMetersPerSecondSq = 0;
+
 	}
 	public static final boolean kGyroReversed = false;
 	

@@ -43,7 +43,6 @@ public class FollowTrajectory extends CommandBase {
   public Trajectory calculateTrajectory(double[][] inputTraj) {
     Trajectory generatedTrajectory = new Trajectory();
     try {
-      //TODO: get x,y and angle from the trajectory and convert it to rot2d and translation2d
 
       Pose2d startPose = new Pose2d(
         inputTraj[0][0],
@@ -53,10 +52,10 @@ public class FollowTrajectory extends CommandBase {
       );
 
       Pose2d endPose = new Pose2d(
-        inputTraj[inputTraj.length][0],
-        inputTraj[inputTraj.length][1],
+        inputTraj[inputTraj.length-1][0],
+        inputTraj[inputTraj.length-1][1],
         Rotation2d.fromDegrees(
-          inputTraj[inputTraj.length][2]
+          inputTraj[inputTraj.length-1][2]
         )
       );
 
