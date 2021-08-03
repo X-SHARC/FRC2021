@@ -43,24 +43,6 @@ public class SwerveDrivetrain extends SubsystemBase {
    * positive y values represent moving toward the left of the robot
    * https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html#constructing-the-kinematics-object
    */
-  private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
-    new Translation2d(
-      Units.inchesToMeters(10),
-      Units.inchesToMeters(10)
-    ),
-    new Translation2d(
-      Units.inchesToMeters(10),
-      Units.inchesToMeters(-10)
-    ),
-    new Translation2d(
-      Units.inchesToMeters(-10),
-      Units.inchesToMeters(10)
-    ),
-    new Translation2d(
-      Units.inchesToMeters(-10),
-      Units.inchesToMeters(-10)
-    )
-  );
 
   private final CKIMU gyro;
 
@@ -75,7 +57,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   };
 
   SwerveDriveOdometry odometry = new SwerveDriveOdometry(
-    kinematics,
+    Constants.Swerve.kinematics,
     getHeading()
   );
   
@@ -112,7 +94,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     SwerveModuleState[] states =
-      kinematics.toSwerveModuleStates(
+    Constants.Swerve.kinematics.toSwerveModuleStates(
         fieldRelative
           ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getHeading())
           : new ChassisSpeeds(xSpeed, ySpeed, rot));
