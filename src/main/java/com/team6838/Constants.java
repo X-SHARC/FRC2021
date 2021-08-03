@@ -1,7 +1,5 @@
 package com.team6838;
 
-import java.util.HashMap;
-
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
@@ -30,7 +28,11 @@ public final class Constants {
 		public static final double kP_YController = 0;
 		public static final double kP_XController = 0;
 	}
+
+	public static final class Trajectory{
+		
+	}
 	public static final boolean kGyroReversed = false;
-    
+	
 
 }
