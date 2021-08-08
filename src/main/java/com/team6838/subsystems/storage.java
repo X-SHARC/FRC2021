@@ -48,8 +48,10 @@ public void runStorageBackwards() {
 
 
 public void runStorage(double speed) {
-  storageOne.set(speed);
-  storagetwo.set(speed);
+  if (!isLocked) {
+    storageOne.set(speed);
+    storagetwo.set(speed);
+  }
 }
 
 
@@ -60,8 +62,10 @@ public void stopStorage() {
 
 
 public void storageInverseFix() {
+  if (!isLocked) {
   storageOne.set(Constants.Storage.storageSpeed);
   storagetwo.set(Constants.Storage.storageSpeed * -1);
+ }
 }
 
 
