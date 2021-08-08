@@ -7,9 +7,10 @@ import com.team6838.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.controller.PIDController;
+
 
 
 public class Shooter extends SubsystemBase{
@@ -41,6 +42,7 @@ public class Shooter extends SubsystemBase{
         slaveMotor.follow(masterMotor);
 
         shooterEncoder.setDistancePerPulse(encoderConstant);
+        pid.setTolerance(100, 100);
     }
 
     public void setPercentage(double percentage){
