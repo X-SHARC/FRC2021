@@ -2,30 +2,15 @@ package com.team6838;
 
 import edu.wpi.first.wpilibj.util.Units;
 
+
 public final class Constants {
 	
 	//feeder
-		public static final int k_feederPort = 0; //feeder için motor numarası değiştirelecek
-		public static final int feederSpeed = 0; //Feeder'ın hızı değişecek
 		
-		public class feeder extends SubsystemBase {
-			/** Creates a new feeder. */
-			public feeder() {}
-		  // This method will be called once per scheduler run
-			private WPI_TalonSRX feeder = new WPI_TalonSRX(Constants.k_feederPort);
-		  
-			public void feederIn() {feederIn(1);};
-			public void feederIn(double scale) {
-			  feeder.set(Constants.feederSpeed * scale);
-			}
-		  
-			public void feederOut() {feederOut(1);};
-			public void feederOut(double scale) {
-			  feeder.set(Constants.feederSpeed * scale);
-			}
-			public void stopEverything() {
-			  feeder.set(0);
-			}
+		
+		public static final class Feeder  {
+			int k_feederPort = 0; //feeder için motor numarası değiştirelecek
+			int feederSpeed = 0; //Feeder'ın hızı değişecek
 		}
 	//drivetrain	
 		public static final class Swerve {
@@ -34,6 +19,8 @@ public final class Constants {
 		}
 
 		public static final boolean kGyroReversed = false;
+		public static double feederSpeed;
+        public static int k_feederPort;
 
 
 }

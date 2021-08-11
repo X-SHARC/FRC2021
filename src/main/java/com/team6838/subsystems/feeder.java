@@ -3,14 +3,22 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package com.team6838.subsystems;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.team6838.Constants;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class feeder extends SubsystemBase {
+  boolean locked = false;
   /** Creates a new feeder. */
 // This method will be called once per scheduler run
   private WPI_TalonSRX feeder = new WPI_TalonSRX(Constants.k_feederPort);
+  private final PowerDistributionPanel m_pdp;
   
+  public feeder(PowerDistributionPanel PDP){
+    this. m_pdp =PDP;
+  }
   public void feederIn() {feederIn(1);};
   public void feederIn(double scale) {
     feeder.set(Constants.feederSpeed * scale);
@@ -22,6 +30,19 @@ public class feeder extends SubsystemBase {
   }
   public void stopEverything() {
     feeder.set(0);
+    public void runFeeder(){
+    if(!locked){
+    feeder.set(Constants.runFeederForward);
+      }
+    }
+    public void runFeeder(){
+      if(!locked){
+      feeder.set(Constants.runFeederBackward);
+        }
+      }
+    
+
+
   }
 
 
