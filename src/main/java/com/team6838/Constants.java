@@ -11,4 +11,13 @@ public final class Constants {
 
 	public static final boolean kGyroReversed = false;
 
+	public static final class Climb{
+			public static final int climbPort = 0;
+			public static final int forwardChannel = 0;
+			public static final int forward = 0;
+			public static final int reverse = 0;
+	}
+
 }
+
+
