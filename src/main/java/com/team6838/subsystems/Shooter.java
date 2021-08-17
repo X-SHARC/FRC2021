@@ -42,7 +42,7 @@ public class Shooter extends SubsystemBase{
         slaveMotor.follow(masterMotor);
 
         shooterEncoder.setDistancePerPulse(encoderConstant);
-        pid.setTolerance(100, 100);
+        pid.setTolerance(100);
     }
 
     public void setPercentage(double percentage){
@@ -64,8 +64,9 @@ public class Shooter extends SubsystemBase{
     }
 
     // ? decide whether we should use PIDcommand or setRPM in the subsystem
-    public void setRPM(int rpm){        
-        masterMotor.set(pid.calculate(getRPM(),rpm)+feedforward.calculate(getRPM()/60, rpm/60));        
+    public void setRPM(int rpm){  
+        pid.setSetpoint(rpm);      
+        masterMotor.set(pid.calculate(pid.getSetpoint()));        
     }
 
     public void runBackwards(){

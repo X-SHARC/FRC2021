@@ -5,6 +5,7 @@
 package com.team6838.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.kauailabs.navx.frc.AHRS;
 import com.team6838.Constants;
 import com.team6838.lib.drivers.CKIMU;
 import com.team6838.lib.drivers.NavX;
@@ -64,9 +65,9 @@ public class SwerveDrivetrain extends SubsystemBase {
   };
   
   /** Creates a new SwerveDrivetrain. */
-  public SwerveDrivetrain(CKIMU gyro) {
-    this.gyro = gyro;
-    gyro.reset();
+  public SwerveDrivetrain(AHRS gyro2) {
+    this.gyro = gyro2;
+    gyro2.reset();
   }
 
   public Rotation2d getHeading(){
