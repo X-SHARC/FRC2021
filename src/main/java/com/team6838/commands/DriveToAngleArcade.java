@@ -26,7 +26,7 @@ public class DriveToAngleArcade extends CommandBase {
   //TODO: TUNE PID
   private PIDController turnController = new PIDController(0.0, 0.0, 0.0);
 
-  private DifferentialDrive drive;
+  private DifferentialDrive d_drive;
   double angle;
   double currentAngle;
   double error;
@@ -37,7 +37,7 @@ public class DriveToAngleArcade extends CommandBase {
     rightMotors = new SpeedControllerGroup(front_right,rear_right);
     leftMotors = new SpeedControllerGroup(front_left, rear_left);
 
-    drive = new DifferentialDrive(rightMotors,leftMotors);
+    d_drive = new DifferentialDrive(rightMotors,leftMotors);
     
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -51,7 +51,8 @@ public class DriveToAngleArcade extends CommandBase {
   public void execute() {
     currentAngle = swerveDt.getHeading().getDegrees();
     turnController.setSetpoint(angle);
-    turnController.calculate(error);
+    double motor_value = turnController.calculate(error);
+    
   }
 
   // Called once the command ends or is interrupted.
