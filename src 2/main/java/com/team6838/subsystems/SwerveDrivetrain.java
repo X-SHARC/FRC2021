@@ -43,7 +43,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private boolean rotCalibration = true;
 
   private final Field2d field2D = new Field2d();
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
   
   /**
    * TODO: These are example values and will need to be adjusted for your robot!
@@ -77,7 +77,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     )
   );
 =======
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
 
   private final CKIMU gyro;
 
@@ -121,7 +121,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule module = modules[i];
       module.resetBothEncoders();
     }
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
   }
 
   public Rotation2d getHeading(){
@@ -159,7 +159,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     SwerveModuleState[] states =
     Constants.Swerve.kinematics.toSwerveModuleStates(
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
         fieldRelative
           ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getHeading())
           : new ChassisSpeeds(xSpeed, ySpeed, rot));
@@ -208,4 +208,4 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   }
 }
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92

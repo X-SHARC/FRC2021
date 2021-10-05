@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpiutil.math.MathUtil;
 
@@ -38,7 +38,7 @@ public class SwerveModule {
 =======
   private static final double kDriveS = 0.0;
   private static final double kDriveV = 0.0;
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
 
   private static final double kAngleP = 0.0;
   private static final double kAngleI = 0.0;
@@ -47,7 +47,7 @@ public class SwerveModule {
 =======
   private static final double kAngleS = 0.0;
   private static final double kAngleV = 0.0;
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
   private static final double kAngleLoopPeriod = 0.005; //update rate of PID, in seconds, set to 200hz NOT IN USE
   // If you can't tune the period constant, just swap it out for the other PID controller constructer (one without period)
   // In order to use a faster loop, PID.calculate() must also run on a separate thread with the same period rate
@@ -86,7 +86,7 @@ public class SwerveModule {
 
   private final SimpleMotorFeedforward driveFeedforward = new SimpleMotorFeedforward(kDriveS, kDriveV);
   private final SimpleMotorFeedforward rotFeedforward = new SimpleMotorFeedforward(kAngleS, kAngleV);
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
 
   public SwerveModule(TalonFX driveMotor, TalonFX angleMotor, DutyCycleEncoder rotEncoder, Rotation2d offset) {
     this.driveMotor = driveMotor;
@@ -116,7 +116,7 @@ public class SwerveModule {
       ));
   }
 
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
   /**
    * Gets the relative rotational position of the module
    * @return The relative rotational position of the angle motor in degrees
@@ -180,7 +180,7 @@ public class SwerveModule {
   public void setDesiredState(SwerveModuleState desiredState) {
     Rotation2d currentRotation = getAngle();
     SwerveModuleState state = SwerveModuleState.optimize(desiredState, currentRotation);
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
     // Find the difference between our current rotational position + our new rotational position
     Rotation2d rotationDelta = state.angle.minus(currentRotation);
 
@@ -200,7 +200,7 @@ public class SwerveModule {
                 desiredRotation
                 ) +
                 rotFeedforward.calculate(rotPID.getSetpoint().velocity) ), 
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
             -1.0, 
             1.0)
     );
@@ -210,7 +210,7 @@ public class SwerveModule {
     //TODO Current drive motor is not using PID, FIXME
     //https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/swervebot/SwerveModule.java
     //current setup uses percent mode which should be OK for tele-op
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
     double feetPerSecond = Units.metersToFeet(state.speedMetersPerSecond);
     driveMotor.set(TalonFXControlMode.PercentOutput, feetPerSecond / Constants.Swerve.kMaxSpeed);
   }
@@ -219,4 +219,4 @@ public class SwerveModule {
 }
 =======
 }
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
