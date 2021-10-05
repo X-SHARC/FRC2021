@@ -4,7 +4,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
 package com.team6838;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
   @Override
   public void disabledInit() {}
 
@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
 <<<<<<< HEAD
 =======
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
 <<<<<<< HEAD
 =======
     // schedule the autonomous command (example)
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
 <<<<<<< HEAD
 =======
   /** This function is called periodically during autonomous. */
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
   @Override
   public void autonomousPeriodic() {}
 
@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -135,4 +135,4 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {}
 }
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
