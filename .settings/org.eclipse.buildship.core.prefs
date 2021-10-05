@@ -6,10 +6,14 @@ connection.project.dir=
 eclipse.preferences.version=1
 gradle.user.home=
 <<<<<<< HEAD
+<<<<<<< HEAD
 java.home=C\:/Users/Public/wpilib/2021/jdk
 =======
 java.home=/Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/Contents/Home
 >>>>>>> shooter
+=======
+java.home=/Library/Java/JavaVirtualMachines/jdk-11.0.5.jdk/Contents/Home
+>>>>>>> feeder
 jvm.arguments=
 offline.mode=false
 override.workspace.settings=true

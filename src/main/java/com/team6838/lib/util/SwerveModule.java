@@ -9,8 +9,17 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.team6838.Constants;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.controller.PIDController;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+=======
+import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+>>>>>>> main
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpiutil.math.MathUtil;
 
@@ -23,10 +32,24 @@ public class SwerveModule {
   private static final double kDriveP = 0.0;
   private static final double kDriveI = 0.0;
   private static final double kDriveD = 0.0;
+<<<<<<< HEAD
   private static final double kDriveF = 0.0; 
+<<<<<<< HEAD
+=======
+=======
+  private static final double kDriveS = 0.0;
+  private static final double kDriveV = 0.0;
+>>>>>>> main
+
+>>>>>>> feeder
   private static final double kAngleP = 0.0;
   private static final double kAngleI = 0.0;
   private static final double kAngleD = 0.0;
+<<<<<<< HEAD
+=======
+  private static final double kAngleS = 0.0;
+  private static final double kAngleV = 0.0;
+>>>>>>> main
   private static final double kAngleLoopPeriod = 0.005; //update rate of PID, in seconds, set to 200hz NOT IN USE
   // If you can't tune the period constant, just swap it out for the other PID controller constructer (one without period)
   // In order to use a faster loop, PID.calculate() must also run on a separate thread with the same period rate
@@ -45,10 +68,27 @@ public class SwerveModule {
   // DutyCycleEncoder is used for absolute values. Switch to normal Encoder class for relative.
   // Using absolute has the advantage of zeroing the modules autonomously.
   // If using relative, find a way to mechanically zero out wheel headings before starting the robot.
+<<<<<<< HEAD
 
   private PIDController anglePID = new PIDController(kAngleP, kAngleI, kAngleD);
   private PIDController drivePID = new PIDController(kDriveP, kDriveI, kDriveD);
   // TODO IMPLEMENT FeedForward FOR DRIVE
+=======
+  double wheelCircumference = 2 * Math.PI * Units.inchesToMeters(2);
+
+  private ProfiledPIDController rotPID = 
+    new ProfiledPIDController(
+      kAngleP,
+      kAngleI,
+      kAngleD,
+      new TrapezoidProfile.Constraints(
+        Constants.Swerve.kMaxSpeed, Constants.Swerve.kModuleMaxAngularAcceleration));
+
+  private PIDController drivePID = new PIDController(kDriveP, kDriveI, kDriveD);
+
+  private final SimpleMotorFeedforward driveFeedforward = new SimpleMotorFeedforward(kDriveS, kDriveV);
+  private final SimpleMotorFeedforward rotFeedforward = new SimpleMotorFeedforward(kAngleS, kAngleV);
+>>>>>>> main
 
   public SwerveModule(TalonFX driveMotor, TalonFX angleMotor, DutyCycleEncoder rotEncoder, Rotation2d offset) {
     this.driveMotor = driveMotor;
@@ -64,6 +104,21 @@ public class SwerveModule {
     // ! Offset usage may be wrong
   }
 
+<<<<<<< HEAD
+=======
+  public double getDriveMotorRate(){
+    return ((driveMotor.getSelectedSensorVelocity() * 10) / 2048.0) * wheelCircumference;
+  }
+
+  public SwerveModuleState getState() {
+    return new SwerveModuleState(
+      getDriveMotorRate(), 
+      new Rotation2d(
+        getDegrees() 
+      ));
+  }
+
+>>>>>>> main
   /**
    * Gets the relative rotational position of the module
    * @return The relative rotational position of the angle motor in degrees
@@ -75,6 +130,7 @@ public class SwerveModule {
     );
   }
 
+<<<<<<< HEAD
   // TODO Encoder
   // Encoder init - DONE
   // Encoder offset - DONE 
@@ -92,23 +148,77 @@ public class SwerveModule {
     Rotation2d currentRotation = getAngle();
     SwerveModuleState state = SwerveModuleState.optimize(desiredState, currentRotation);
 
+=======
+  public void calibrate(String Name, boolean offsetCalibration, boolean driveCalibration, boolean rotCalibration){
+    if(offsetCalibration){
+      SmartDashboard.putNumber(Name + " Rot Encoder Value", getDegrees());
+      // ? not sure but maybe glass lets you change variables as well
+      // ? if so, you may use it to accurately find the offset
+    }
+    // ? all the values below should be tunable in Glass
+    if(rotCalibration){
+      SmartDashboard.putData(Name + " Rotation PID", rotPID);     
+      // ? can't tune FeedForward in real time
+    }
+    if(driveCalibration){
+      SmartDashboard.putData(Name + " Drive PID", drivePID);
+    }
+  }
+
+  public void resetRotationEncoder(){
+    rotEncoder.reset();
+  }
+  
+  public void resetDriveEncoder(){
+    driveMotor.setSelectedSensorPosition(0);    
+  }
+
+  public void resetBothEncoders(){
+    resetDriveEncoder();
+    resetRotationEncoder();
+  }
+
+  // ! NEED TO IMPLEMET THE DRIVEMOTOR PIDF BEFORE TRYING ON REAL HARDWARE
+  public void setDesiredState(SwerveModuleState desiredState) {
+    Rotation2d currentRotation = getAngle();
+    SwerveModuleState state = SwerveModuleState.optimize(desiredState, currentRotation);
+>>>>>>> main
     // Find the difference between our current rotational position + our new rotational position
     Rotation2d rotationDelta = state.angle.minus(currentRotation);
 
     double desiredRotation = currentRotation.getDegrees() + rotationDelta.getDegrees();
 
     angleMotor.set(TalonFXControlMode.PercentOutput, 
+<<<<<<< HEAD
         MathUtil.clamp(
             anglePID.calculate(
                 currentRotation.getDegrees(),
                 desiredRotation
                 ), 
+=======
+        MathUtil.clamp( 
+          ( rotPID.calculate(
+                currentRotation.getDegrees(),
+                desiredRotation
+                ) +
+                rotFeedforward.calculate(rotPID.getSetpoint().velocity) ), 
+>>>>>>> main
             -1.0, 
             1.0)
     );
 
+<<<<<<< HEAD
+=======
+    //TODO Current drive motor is not using PID, FIXME
+    //https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/swervebot/SwerveModule.java
+    //current setup uses percent mode which should be OK for tele-op
+>>>>>>> main
     double feetPerSecond = Units.metersToFeet(state.speedMetersPerSecond);
     driveMotor.set(TalonFXControlMode.PercentOutput, feetPerSecond / Constants.Swerve.kMaxSpeed);
   }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main
