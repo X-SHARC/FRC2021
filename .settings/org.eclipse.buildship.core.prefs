@@ -7,6 +7,7 @@ eclipse.preferences.version=1
 gradle.user.home=
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 java.home=C\:/Users/Public/wpilib/2021/jdk
 =======
 java.home=/Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/Contents/Home
@@ -14,6 +15,9 @@ java.home=/Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/Contents/Home
 =======
 java.home=/Library/Java/JavaVirtualMachines/jdk-11.0.5.jdk/Contents/Home
 >>>>>>> feeder
+=======
+java.home=/Users/ecezehraekincikli/Desktop/wpilib/2020/jdk
+>>>>>>> climb
 jvm.arguments=
 offline.mode=false
 override.workspace.settings=true

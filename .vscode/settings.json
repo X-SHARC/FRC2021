@@ -1,10 +1,14 @@
 <<<<<<< HEAD
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "java.configuration.updateBuildConfiguration": "automatic"
 =======
     "java.configuration.updateBuildConfiguration": "interactive"
 >>>>>>> shooter
+=======
+    "C_Cpp.dimInactiveRegions": false
+>>>>>>> climb
 }
 =======
 {
@@ -24,4 +28,8 @@
     "**/*~": true
   }
 }
+<<<<<<< HEAD
 >>>>>>> feeder
+=======
+>>>>>>> main
+>>>>>>> climb
