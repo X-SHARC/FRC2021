@@ -7,19 +7,26 @@
 	<buildSpec>
 		<buildCommand>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> storage-
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+<<<<<<< HEAD
 =======
 >>>>>>> climb
+=======
+>>>>>>> storage-
 			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
+<<<<<<< HEAD
 <<<<<<< HEAD
 		<nature>org.eclipse.jdt.core.javanature</nature>
 =======
@@ -49,4 +56,9 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+=======
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
+	</natures>
+>>>>>>> storage-
 </projectDescription>

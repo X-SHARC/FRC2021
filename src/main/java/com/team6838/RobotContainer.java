@@ -15,7 +15,7 @@ public class RobotContainer {
   //or 
   //private final CKIMU gyro = new NavX();
   private final XboxController controller = new XboxController(0);
-  private final SwerveDrivetrain drivetrain = new SwerveDrivetrain(gyro , false);
+  private final SwerveDrivetrain drivetrain = new SwerveDrivetrain();
 
   public RobotContainer() {
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
@@ -26,6 +26,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
     return null;
   }
 }

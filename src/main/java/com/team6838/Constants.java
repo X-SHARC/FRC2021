@@ -6,12 +6,15 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 
 import edu.wpi.first.wpilibj.util.Units;
 
+//TODO: EDIT ALL CONSTANTS
 public final class Constants {
-
-	public static final class Swerve {
-		public static final double kMaxSpeed = Units.feetToMeters(16.2); // 16.2 feet per second
-		public static final double kMaxAngularSpeed = Math.PI; // 1/2 rotation per second
-
+	public static final class Storage {
+		public static final int storagePortRight = 0;
+		public static final int storagePortLeft = 0;
+		public static final double storageSpeed = 0;
+        public static int storagePDPChannel;
+        public static double storageCurrentThreshold;
+	}
 
 		public static final double kModuleMaxAngularAcceleration = 2 * Math.PI; // radians per second squared
 		
@@ -30,7 +33,7 @@ public final class Constants {
 		public static final Constraints kThetaControllerConstraints = null;
 		public static final double kP_YController = 0;
 		public static final double kP_XController = 0;
-	}
+
 	public static final class Feeder  {
 		public static final int k_feederPort = 0; //feeder için motor numarası değiştirelecek
 		public static final int feederSpeed = 0; //Feeder'ın hızı değişecek
@@ -38,7 +41,7 @@ public final class Constants {
 		public static double runFeederForward = 0; //edit
 	}
 
-	public static final class Shooter{
+	public static final class Shooter{ 
 		//ports will be change
 		public static final int k_SHOOTER_MASTER_MOTOR = 0;
 		public static final int k_SHOOTER_SLAVE_MOTOR = 1;
@@ -51,8 +54,6 @@ public final class Constants {
 
 		public static final double maxVelocityMetersPerSecond = 0;
 		public static final double maxAccelerationMetersPerSecondSq = 0;
-
-
 	}	
 	public static final class Climb{ //TODO EDİT 
 		public static final int climbPort = 0;

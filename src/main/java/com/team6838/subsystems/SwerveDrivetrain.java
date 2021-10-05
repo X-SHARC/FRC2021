@@ -2,6 +2,11 @@ package com.team6838.subsystems;
 
 
 import com.team6838.Constants;
+<<<<<<< HEAD
+=======
+import com.team6838.lib.drivers.CKIMU;
+<<<<<<< HEAD
+>>>>>>> storage-
 import com.team6838.lib.drivers.NavX;
 import com.team6838.lib.util.SwerveModule;
 
@@ -14,6 +19,23 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+<<<<<<< HEAD
+=======
+public class SwerveDrivetrain extends SubsystemBase {
+=======
+import com.team6838.lib.util.SwerveModule;
+
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+>>>>>>> storage-
 
 public class SwerveDrivetrain extends SubsystemBase {
 
@@ -23,6 +45,10 @@ public class SwerveDrivetrain extends SubsystemBase {
   private boolean rotCalibration = true;
 
   private final Field2d field2D = new Field2d();
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> storage-
   
   /**
    * TODO: These are example values and will need to be adjusted for your robot!
@@ -36,7 +62,11 @@ public class SwerveDrivetrain extends SubsystemBase {
    * positive y values represent moving toward the left of the robot
    * https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html#constructing-the-kinematics-object
    */
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> storage-
   private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
     new Translation2d(
       Units.inchesToMeters(10),
@@ -55,7 +85,12 @@ public class SwerveDrivetrain extends SubsystemBase {
       Units.inchesToMeters(-10)
     )
   );
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> main
+>>>>>>> storage-
 
   private final CKIMU gyro;
 
@@ -63,7 +98,11 @@ public class SwerveDrivetrain extends SubsystemBase {
   // TODO: Update module offsets to match your CANCoder offsets
 
   private SwerveModule[] modules = new SwerveModule[] {
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> storage-
     new SwerveModule(new TalonFX(1), new TalonFX(2), new DutyCycleEncoder(0), Rotation2d.fromDegrees(0)), // Front Left
     new SwerveModule(new TalonFX(3), new TalonFX(4), new DutyCycleEncoder(0), Rotation2d.fromDegrees(0)), // Front Right
     new SwerveModule(new TalonFX(5), new TalonFX(6), new DutyCycleEncoder(0), Rotation2d.fromDegrees(0)), // Back Left
@@ -71,7 +110,20 @@ public class SwerveDrivetrain extends SubsystemBase {
   };
   
   /** Creates a new SwerveDrivetrain. */
+<<<<<<< HEAD
   
+=======
+  public SwerveDrivetrain(CKIMU gyro) {
+    this.gyro = gyro;
+    gyro.reset();
+=======
+    new SwerveModule(new TalonFX(1), new TalonFX(2), new DutyCycleEncoder(0), Rotation2d.fromDegrees(0)), //! Front Left
+    new SwerveModule(new TalonFX(3), new TalonFX(4), new DutyCycleEncoder(0), Rotation2d.fromDegrees(0)), //! Front Right
+    new SwerveModule(new TalonFX(5), new TalonFX(6), new DutyCycleEncoder(0), Rotation2d.fromDegrees(0)), //! Back Left
+    new SwerveModule(new TalonFX(7), new TalonFX(8), new DutyCycleEncoder(0), Rotation2d.fromDegrees(0))  //! Back Right
+  };
+
+>>>>>>> storage-
   SwerveDriveOdometry odometry = new SwerveDriveOdometry(
     Constants.Swerve.kinematics,
     getHeading()
@@ -90,14 +142,22 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule module = modules[i];
       module.resetBothEncoders();
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
+>>>>>>> storage-
   }
 
   public Rotation2d getHeading(){
     return Rotation2d.fromDegrees(
       Math.IEEEremainder(gyro.getRawYawDegrees(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0)
     );
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> storage-
     //return Math.IEEEremainder(- gyro.getAngle(),360); 
   }
 
@@ -109,7 +169,15 @@ public class SwerveDrivetrain extends SubsystemBase {
    * @param rot Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
+<<<<<<< HEAD
  
+=======
+  public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    SwerveModuleState[] states =
+      kinematics.toSwerveModuleStates(
+=======
+  }
+>>>>>>> storage-
 
   public Pose2d getPose(){
     return odometry.getPoseMeters();
@@ -124,7 +192,11 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     SwerveModuleState[] states =
     Constants.Swerve.kinematics.toSwerveModuleStates(
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
+>>>>>>> storage-
         fieldRelative
           ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getHeading())
           : new ChassisSpeeds(xSpeed, ySpeed, rot));
@@ -136,7 +208,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
   }
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+}
+=======
+>>>>>>> storage-
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.normalizeWheelSpeeds(
         desiredStates, Constants.Swerve.kMaxSpeed);
@@ -167,3 +249,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   }
 }
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> storage-

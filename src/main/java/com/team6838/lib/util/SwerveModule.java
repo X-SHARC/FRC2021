@@ -36,9 +36,12 @@ public class SwerveModule {
   private static final double kDriveF = 0.0; 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> climb
+=======
+>>>>>>> storage-
 =======
   private static final double kDriveS = 0.0;
   private static final double kDriveV = 0.0;
