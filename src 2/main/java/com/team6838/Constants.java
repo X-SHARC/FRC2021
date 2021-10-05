@@ -5,7 +5,7 @@ package com.team6838;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
 import edu.wpi.first.wpilibj.util.Units;
 
 public final class Constants {
@@ -16,16 +16,14 @@ public final class Constants {
 <<<<<<< HEAD
 	}
 
-	public static final class Storage {
-		public static final int storagePortRight = 0;
-		public static final int storagePortLeft = 0;
-		public static final double storageSpeed = 0;
-	}
-
 	public static final boolean kGyroReversed = false;
-	public static final int storagePDPChannel = 0;
-	public static final double storageCurrentThreshold = 0;
-	
+
+	public static final class Shooter {
+		//Ports will be changed 
+		public static final int SHOOTER_MASTER_MOTOR = 0;
+		public static final int SHOOTER_SLAVE_MOTOR = 1;
+	}
+    
 
 }
 =======
@@ -58,4 +56,4 @@ public final class Constants {
 	
 
 }
->>>>>>> main
+>>>>>>> 06da5edb09a61cb57c8b4f4c458c06a99d42ac92
