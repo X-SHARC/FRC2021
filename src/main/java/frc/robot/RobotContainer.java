@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -15,7 +14,6 @@ import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Vision;
 import frc.robot.commands.Auto3Ball;
-import frc.robot.commands.Auto3BallIntakeDrop;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.BlindAuto;
 import frc.robot.commands.ClimbPOV;
