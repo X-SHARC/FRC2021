@@ -14,7 +14,6 @@ public class LEDSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 
   public void turnOn(){
@@ -28,6 +27,7 @@ public class LEDSubsystem extends SubsystemBase {
   public void toggle(){
     led.toggle();
   }
+
   public boolean getState(){
     return led.get();
   }

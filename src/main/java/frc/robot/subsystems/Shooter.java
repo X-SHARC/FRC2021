@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 
 
 public class Shooter extends SubsystemBase{
+
     public static WPI_TalonSRX masterMotor;
     public static WPI_TalonSRX slaveMotor;
     public Encoder shooterEncoder;
@@ -34,38 +35,27 @@ public class Shooter extends SubsystemBase{
     private double ENCODER_EDGES_PER_REV = 4096 / 4.;
     private double encoderConstant = (1 / ENCODER_EDGES_PER_REV);
     
-    
-
-    double yaw;
-    double pitch;
-    double skew;
-    Transform2d pose;
-    Translation2d  translation;
-
-    double range;
-
-    double targetAngle;
-
     public Shooter(){
         masterMotor = new WPI_TalonSRX(4);
         slaveMotor = new WPI_TalonSRX(9);
-        shooterEncoder = new Encoder(0, 1, false);
-        shooterEncoder.setDistancePerPulse(encoderConstant);
         
         slaveMotor.setInverted(false);
         masterMotor.setInverted(false);
-        //slaveMotor.follow(masterMotor);
 
-        //shooterEncoder.setDistancePerPulse(encoderConstant);
+        shooterEncoder = new Encoder(0, 1, false);
+        shooterEncoder.setDistancePerPulse(encoderConstant);
+        
         pid.setTolerance(100);
     }
     public void setShooter(double percentage) {
-      //masterMotor.set(percentage);
-      masterMotor.setVoltage(percentage*13);
-      slaveMotor.setVoltage(percentage*13);
-      //slaveMotor.set(percentage);
+        masterMotor.setVoltage(percentage*13);
+        slaveMotor.setVoltage(percentage*13);
     }
 
+    public void runBackwards(){
+        setShooter(-0.2);
+    }
+        
     public double getRPM(){
         return shooterEncoder.getRate() * 60.;
     }
@@ -82,16 +72,12 @@ public class Shooter extends SubsystemBase{
 
     // ? Feedforward
     public void setRPM(int rpm){
-        double ffOutput = feedforward.calculate(rpm);
-        double pidOutput = pid.calculate(getRPM(), rpm);
-        SmartDashboard.putNumber("Shooter FF  Output", ffOutput);
-        SmartDashboard.putNumber("Shooter PID Output", pidOutput);
-        setShooter(MathUtil.clamp(pidOutput, -1, 1));
+        double FFOutput = feedforward.calculate(rpm);
+        double PIDOutput = pid.calculate(getRPM(), rpm);
+        SmartDashboard.putNumber("Shooter FF  Output", FFOutput);
+        SmartDashboard.putNumber("Shooter PID Output", PIDOutput);
+        setShooter(MathUtil.clamp(PIDOutput, -1, 1));
     }
 
-    public void runBackwards(){
-        setShooter(-0.2);
-    }
-        
     
 }

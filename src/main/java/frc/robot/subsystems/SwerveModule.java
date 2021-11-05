@@ -9,17 +9,15 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
+import frc.robot.lib.util.Gearbox;
 
 // ! Need to change the rotation PIDs to RoboRio - !DONE!
 // ! handle with caution
@@ -44,8 +42,6 @@ public class SwerveModule {
   // TODO| look into running the .calculate() on a separeate thread
 
   // CANCoder & SRXMagEncoder has 4096 ticks/rotation
-  // ! CHECK FOR YOUR ENCODER & SETUP
-  // ! Not sure if absolute mode CPR is 4096 for MagEncoder | Update: current encoder setup must be correct, outputing[-180, 180]
   private static double kEncoderTicksPerRotation = 4096;
 
   private Rotation2d offset;
@@ -57,15 +53,7 @@ public class SwerveModule {
   // Using absolute has the advantage of zeroing the modules autonomously.
   // If using relative, find a way to mechanically zero out wheel headings before starting the robot.
   double wheelCircumference = 2 * Math.PI * Units.inchesToMeters(2);
-
-  /*
-  private ProfiledPIDController rotPID = 
-    new ProfiledPIDController(
-      kAngleP,
-      kAngleI,
-      kAngleD,
-      new TrapezoidProfile.Constraints(
-        Constants.Swerve.kMaxSpeed, Constants.Swerve.kModuleMaxAngularAcceleration)); */
+  Gearbox driveRatio = new Gearbox(6.86, 1);
   
   private PIDController rotPID = new PIDController(kAngleP, kAngleI, kAngleD);
 
@@ -80,26 +68,23 @@ public class SwerveModule {
     this.rotEncoder = rotEncoder;
     this.offset = offset;
     
-    //rotEncoder.setDistancePerRotation(360.0/kEncoderTicksPerRotation);
-    //rotPID.enableContinuousInput(-180,  180);
     rotPID.disableContinuousInput();
   }
 
   public double getDegrees(){
     return Math.IEEEremainder((rotEncoder.get() * 360. + offset.getDegrees()),
      360.);
-     //return rotEncoder.get() * 360. + offset.getDegrees()  ;
-    //return Math.IEEEremainder((rotEncoder.get() * 360.0 + offset.getDegrees()), 360.0);
-    // ! Offset usage may be wrong
   }
 
   public double getPosition(){
     return -driveMotor.getSelectedSensorPosition() / 2048.0 * Math.PI * 2 * Units.inchesToMeters(2);
   }
 
-    // TODO TEST
+    // ! added drive ratio, check odometry
   public double getDriveMotorRate(){
-    return ((driveMotor.getSelectedSensorVelocity() * 10) / 2048.0) * wheelCircumference;
+    return driveRatio.calculate(
+      ((driveMotor.getSelectedSensorVelocity() * 10) / 2048.0) * wheelCircumference
+    );
   }
 
   public SwerveModuleState getState() {
@@ -109,12 +94,7 @@ public class SwerveModule {
       );
   }
 
-  /**
-   * Gets the relative rotational position of the module
-   * @return The relative rotational position of the angle motor in degrees
-   */
   public Rotation2d getAngle() {
-    // This reports degrees, not radians.
     return Rotation2d.fromDegrees(
      getDegrees()
     );

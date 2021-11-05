@@ -26,23 +26,23 @@ public class Storage extends SubsystemBase {
   }
 
   public void bothForward(){
-    storageLeft.set(ControlMode.PercentOutput,Constants.STORAGE_SPEED);
-    storageRight.set(ControlMode.PercentOutput,Constants.STORAGE_SPEED);
+    storageLeft.set(ControlMode.PercentOutput,Constants. storageSpeed);
+    storageRight.set(ControlMode.PercentOutput,Constants. storageSpeed);
   }
 
   public void bothBackward(){
-    storageLeft.set(ControlMode.PercentOutput,-1 * Constants.STORAGE_SPEED);
-    storageRight.set(ControlMode.PercentOutput, -1 * Constants.STORAGE_SPEED);
+    storageLeft.set(ControlMode.PercentOutput,-1 * Constants. storageSpeed);
+    storageRight.set(ControlMode.PercentOutput, -1 * Constants. storageSpeed);
   }
 
   public void rightForward(){
-    storageRight.set(ControlMode.PercentOutput, Constants.STORAGE_SPEED);
-    storageLeft.set(ControlMode.PercentOutput, -1 * Constants.STORAGE_SPEED);
+    storageRight.set(ControlMode.PercentOutput, Constants. storageSpeed);
+    storageLeft.set(ControlMode.PercentOutput, -1 * Constants. storageSpeed);
   }
 
   public void leftForward(){
-    storageRight.set(ControlMode.PercentOutput, -1 * Constants.STORAGE_SPEED);
-    storageLeft.set(ControlMode.PercentOutput, Constants.STORAGE_SPEED);
+    storageRight.set(ControlMode.PercentOutput, -1 * Constants. storageSpeed);
+    storageLeft.set(ControlMode.PercentOutput, Constants. storageSpeed);
   }
 
   public void set(double speed){

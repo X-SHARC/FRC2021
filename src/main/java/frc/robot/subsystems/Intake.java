@@ -13,6 +13,7 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public WPI_TalonSRX intake = new WPI_TalonSRX(2);
+
   public Intake() {
     intake.setInverted(true);
   }
@@ -23,11 +24,11 @@ public class Intake extends SubsystemBase {
   }
 
   public void intakeForward(){
-    intake.set(ControlMode.PercentOutput, Constants.INTAKE_SPEED);
+    intake.set(ControlMode.PercentOutput, 0.8);
   }
 
   public void intakeBackwards(){
-    intake.set(ControlMode.PercentOutput, -1 *Constants.INTAKE_SPEED);
+    intake.set(ControlMode.PercentOutput,  -0.8);
   }
 
   public void stop(){

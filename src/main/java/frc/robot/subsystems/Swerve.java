@@ -9,10 +9,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
@@ -21,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.Swerve.AutoPID.*;
 
 public class Swerve extends SubsystemBase {
 
@@ -118,8 +115,6 @@ public class Swerve extends SubsystemBase {
     return odometry.getPoseMeters();
   }
 
-  
-
   public void resetOdometry(Pose2d pose) {
     odometry.resetPosition(
       pose, 
@@ -177,43 +172,6 @@ public class Swerve extends SubsystemBase {
       modules[3].calibrate("Back Right", offsetCalibration, driveCalibration, rotCalibration);
     }
 
-  }
-
-
-  // ---------- Semi-Autonomous Stuff -------------
-
-
-  
-  private PIDController xLocationPidController; 
-  private PIDController yLocationPidController; 
-  private PIDController headingPidController; 
-
-  private double angleTolerance    = 1;   // degrees
-  private double distanceTolerance = 0.1; // meters
-
-  private void initializeAutoPIDs() {
-    xLocationPidController = new PIDController(XLocationParams.kP, XLocationParams.kI, XLocationParams.kD);
-    
-    yLocationPidController = new PIDController(YLocationParams.kP, XLocationParams.kI, XLocationParams.kD);
-    
-    headingPidController = new PIDController(HeadingParams.kP, HeadingParams.kI, HeadingParams.kD);
-    // headingPidController.enableContinuousInput(-180, 180);
-  }
-
-  public boolean goTo(Pose2d goal) {
-    Transform2d difference = getPose().minus(goal);
-    if ((difference.getRotation().getDegrees() < angleTolerance) && (difference.getX()*difference.getX() + difference.getY()*difference.getY()) < distanceTolerance)
-      return true;
-
-    Pose2d pose = getPose();
-    drive(
-      xLocationPidController.calculate(pose.getX(), goal.getX()),
-      yLocationPidController.calculate(pose.getY(), goal.getY()),
-      headingPidController.calculate(getHeadingDouble(), goal.getRotation().getDegrees()),
-      true
-    );
-    return false;
-  
   }
 
 

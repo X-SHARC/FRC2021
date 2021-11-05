@@ -11,11 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
-
-
 public class Vision extends SubsystemBase {
   
   private PhotonCamera camera;
@@ -30,14 +26,6 @@ public class Vision extends SubsystemBase {
      this.nt = NTmain.getTable("photonvision").getSubTable("compcam");
 
   }
-/*
-  public double getYaw(){
-    if(result.hasTargets()){
-      return result.getBestTarget().getYaw();
-    }
-    else return 0.0;
-  }
-  */
 
   public double getYaw(){
     return nt.getEntry("targetYaw").getDouble(Double.NaN);

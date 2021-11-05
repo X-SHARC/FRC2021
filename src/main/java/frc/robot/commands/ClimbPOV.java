@@ -12,18 +12,16 @@ public class ClimbPOV extends CommandBase {
   /** Creates a new ClimbPOV. */
   Climb climb;
   XboxController operator;
+  
   public ClimbPOV(XboxController operator,Climb climb) {
     this.climb = climb;
     this.operator = operator;
     addRequirements(climb);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     switch(operator.getPOV()){
@@ -33,8 +31,6 @@ public class ClimbPOV extends CommandBase {
       case 45:
         climb.rightUp();
         break;
-      case 90:
-      //pass
       case 135:
         climb.rightDown();
         break;
@@ -52,13 +48,11 @@ public class ClimbPOV extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     climb.stop();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

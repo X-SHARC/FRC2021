@@ -35,24 +35,6 @@ public final class Constants {
 		public static final Constraints kThetaControllerConstraints = null;
 		public static final double kP_YController = 0;
 		public static final double kP_XController = 0;
-		
-		public static final class AutoPID {
-			public static final class XLocationParams {
-				public static final double kP = 0.1;
-				public static final double kI = 0;
-				public static final double kD = 0;
-			} 
-			public static final class YLocationParams {
-				public static final double kP = 0.1;
-				public static final double kI = 0;
-				public static final double kD = 0;
-			} 
-			public static final class HeadingParams {
-				public static final double kP = 70/360;
-				public static final double kI = 0;
-				public static final double kD = 0;
-			} 
-		}
 	
 	}
 
@@ -67,8 +49,8 @@ public final class Constants {
 
 
 
-    public static final double INTAKE_SPEED = 1.0;
-    public static final double STORAGE_SPEED = 0.65;
+    public static final double intakeSpeed = 1.0;
+    public static final double storageSpeed = 0.65;
 	public static final int storageRightPort = 5;
     public static final int storageLeftPort = 1;
 	
