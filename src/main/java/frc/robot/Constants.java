@@ -24,26 +24,25 @@ public final class Constants {
 		public static final double kWidth = 0.5953;
 
 		public static final SwerveDriveKinematics kinematics =
-        new SwerveDriveKinematics(
-            new Translation2d(kLength / 2, kWidth / 2),
-            new Translation2d(kLength / 2, -kWidth / 2),
-            new Translation2d(-kLength / 2, kWidth / 2),
-			new Translation2d(-kLength / 2, -kWidth / 2));
+			new SwerveDriveKinematics(
+				new Translation2d(kLength / 2, kWidth / 2),
+				new Translation2d(kLength / 2, -kWidth / 2),
+				new Translation2d(-kLength / 2, kWidth / 2),
+				new Translation2d(-kLength / 2, -kWidth / 2)
+			);
 			
 		public static final double maxAccelerationMetersPerSecondSq = 0;
 		public static final double kP_Theta = 0;
 		public static final Constraints kThetaControllerConstraints = null;
 		public static final double kP_YController = 0;
 		public static final double kP_XController = 0;
-	
 	}
 
-	public static final class Trajectory{
-
-		public static final double maxVelocityMetersPerSecond = 0;
-		public static final double maxAccelerationMetersPerSecondSq = 0;
-
+	public static final class Trajectory { 
+		public static final double kMaxSpeed = 0.0; // ms^-1
+		public static final double kMaxAcceleration = 0.; // ms^-2
 	}
+
 	public static final boolean kGyroReversed = true;
 
 
