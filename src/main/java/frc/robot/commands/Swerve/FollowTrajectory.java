@@ -54,7 +54,7 @@ public class FollowTrajectory extends CommandBase {
     timer.start();
   }
 
-  public FollowTrajectory(String name, Swerve swerve,Trajectory traj){
+  public FollowTrajectory(String name, Swerve swerve, Trajectory traj){
     this(name, swerve, traj, 180);
   }
 
@@ -129,6 +129,7 @@ public class FollowTrajectory extends CommandBase {
   public void end(boolean interrupted) {
     swerve.drive(0, 0, 0, false);
     System.out.println("Finished " + name + " Path in " + timer.get() + " seconds");
+    System.out.println("Trajectory Type: " + type);
   }
 
   // Returns true when the command should end.
@@ -137,6 +138,9 @@ public class FollowTrajectory extends CommandBase {
     return timer.hasElapsed(trajectory.getTotalTimeSeconds());
   }
 
+  public TrajectoryType getType() {
+    return type;
+  }
   
   public Trajectory calculateTranslation2dTrajectory(double[][] inputTraj) {
     Trajectory generatedTrajectory = new Trajectory();
