@@ -6,6 +6,7 @@ package frc.robot.commands.Swerve;
 
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.HolonomicDriveController;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -28,6 +29,7 @@ public class FollowTrajectory extends CommandBase {
   private Timer timer;
   private Trajectory trajectory;
   private String name;
+
   private enum TrajectoryType {WPILIB,CUSTOM}
   TrajectoryType type;
   private Trajectory.State state = new Trajectory.State();
@@ -73,6 +75,10 @@ public class FollowTrajectory extends CommandBase {
 
   @Override
   public void initialize() {
+    if(trajectory == null){
+      DriverStation.reportError("Cannot generate trajectory. Null trajectory! Quitting Command...", false);
+      end(true);
+    }
     var p = 0.0;
     var d = p / 100.0;
 

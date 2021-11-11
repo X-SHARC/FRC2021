@@ -3,7 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,14 +15,31 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
+  private DriverStation ds;
+  private Alliance allianceColor;
+  private int dsLocation;
+
+  public void displayMatchInfo(){
+    SmartDashboard.putString("Event Name", ds.getEventName());
+    SmartDashboard.putNumber("Match Number", ds.getMatchNumber());
+    SmartDashboard.putNumber("Time Remaining", ds.getMatchTime());
+  }
 
   @Override
   public void robotInit() {
+    this.allianceColor = ds.getAlliance();
+    this.dsLocation = ds.getLocation();
+
     m_robotContainer = new RobotContainer();
+
+    if(!ds.isFMSAttached()) ds.silenceJoystickConnectionWarning(true);
+
     autoChooser.setDefaultOption("Blind Auto", 0);
     autoChooser.addOption("3 Ball Auto w/ Vision", 1);
     autoChooser.addOption("3 Ball Auto w/ Vision + Intake", 2);
     SmartDashboard.putData(autoChooser);
+
+    if(ds.isDSAttached()) displayMatchInfo();
   }
 
   @Override

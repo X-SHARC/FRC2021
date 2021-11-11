@@ -25,11 +25,12 @@ import frc.robot.lib.util.Gearbox;
 public class SwerveModule {
     
   // TODO: Tune these PID values for your robot
-  private static final double kDriveP = 0.0;
+  private static final double kDriveP = 0.33362;
   private static final double kDriveI = 0.0;
   private static final double kDriveD = 0.0;
-  private static final double kDriveS = 0.0;
-  private static final double kDriveV = 0.0;
+  private static final double kDriveS = 0.47088;
+  private static final double kDriveV = 2.3799;
+  private static final double kDriveA = 0.43084;
 
   private static final double kAngleP = 0.007;
   private static final double kAngleI = 0.0;
@@ -77,7 +78,7 @@ public class SwerveModule {
   }
 
   public double getPosition(){
-    return -driveMotor.getSelectedSensorPosition() / 2048.0 * Math.PI * 2 * Units.inchesToMeters(2);
+    return -driveMotor.getSelectedSensorPosition() / 2048.0 * wheelCircumference;
   }
 
     // ! added drive ratio, check odometry
@@ -158,7 +159,9 @@ public class SwerveModule {
     //https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/swervebot/SwerveModule.java
     //current setup uses percent mode which should be OK for tele-op
     double feetPerSecond = Units.metersToFeet(state.speedMetersPerSecond);
-    driveMotor.set(TalonFXControlMode.PercentOutput, feetPerSecond / Constants.Swerve.kMaxSpeed);
+    //+ driveFeedforward.calculate(state.speedMetersPerSecond)
+    driveMotor.set(TalonFXControlMode.PercentOutput, 
+    MathUtil.clamp(drivePID.calculate(state.speedMetersPerSecond, getDriveMotorRate()) , -1, 1));
   }
 
 }
