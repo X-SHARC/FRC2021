@@ -155,13 +155,13 @@ public class SwerveModule {
     );
     //SmartDashboard.putNumber("setpoint", desiredRotation);
 
-    //TODO Current drive motor is not using PID, FIXME
+    //TODO Implemented PID for drive motors, need tuning and trial
     //https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/swervebot/SwerveModule.java
     //current setup uses percent mode which should be OK for tele-op
     double feetPerSecond = Units.metersToFeet(state.speedMetersPerSecond);
     //+ driveFeedforward.calculate(state.speedMetersPerSecond)
     driveMotor.set(TalonFXControlMode.PercentOutput, 
-    MathUtil.clamp(drivePID.calculate(state.speedMetersPerSecond, getDriveMotorRate()) , -1, 1));
+    MathUtil.clamp(drivePID.calculate(getDriveMotorRate(), state.speedMetersPerSecond) , -1, 1));
   }
 
 }
