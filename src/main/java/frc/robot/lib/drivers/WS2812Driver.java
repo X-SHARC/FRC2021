@@ -117,7 +117,16 @@ public void symetricLaser(){
    */
 }
 
-public void laser(){
-  
+public void showPercentage(double percent) {
+  int LEDCount = (int) Math.round(percent * 8.);
+  int emptyLEDCount = 8 - LEDCount;
+
+  for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+    if(i+1 <= emptyLEDCount || i+1 >= 15-emptyLEDCount) {
+      m_ledBuffer.setRGB(i, 153, 0, 0);
+    }
+    else m_ledBuffer.setRGB(i, 0, 153, 51);
+  }
+  m_led.setData(m_ledBuffer);
 }
 }
