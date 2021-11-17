@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(autoChooser);
 
     //if(ds.isDSAttached()) displayMatchInfo();
-    m_robotContainer.statusLED.setBufferColor(0, 255, 0);
+    
   }
 
   @Override

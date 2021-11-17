@@ -17,13 +17,13 @@ public class WS2812Driver extends SubsystemBase {
     m_ledBuffer = new AddressableLEDBuffer(ledLength);
     m_led.setLength(m_ledBuffer.getLength());
 
-    setBufferColor(0, 0, 0);
+    setBufferColor(0, 255, 255);
     m_led.start();
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    //setBufferColor(0, 255, 255);
   }
   public static void setBufferColor(int r, int g, int b) {
 
