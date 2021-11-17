@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpiutil.net.PortForwarder;
 import frc.robot.commands.Swerve.SwerveDriveCommand;
 import frc.robot.commands.Swerve.TurnToAngle;
+import frc.robot.lib.drivers.WS2812Driver;
 import frc.robot.commands.Swerve.AutoAlign;
 import frc.robot.commands.Swerve.DriveForDistance;
 import frc.robot.subsystems.Swerve;
@@ -31,7 +32,8 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Climb;
 
 public class RobotContainer {
-
+  // ! LED
+  WS2812Driver statusLED = new WS2812Driver(0, 15);
   // !SUBSYSTEMS
   Swerve swerveDrivetrain = new Swerve(true);
   LEDSubsystem LED = new LEDSubsystem();

@@ -16,8 +16,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
   private DriverStation ds;
-  private Alliance allianceColor;
-  private int dsLocation;
+  //private Alliance allianceColor;
+  //private int dsLocation;
 
   public void displayMatchInfo(){
     SmartDashboard.putString("Event Name", ds.getEventName());
@@ -27,19 +27,20 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    this.allianceColor = ds.getAlliance();
-    this.dsLocation = ds.getLocation();
+    //this.allianceColor = ds.getAlliance();
+    //this.dsLocation = ds.getLocation();
 
     m_robotContainer = new RobotContainer();
 
-    if(!ds.isFMSAttached()) ds.silenceJoystickConnectionWarning(true);
+    //if(!ds.isFMSAttached()) ds.silenceJoystickConnectionWarning(true);
 
     autoChooser.setDefaultOption("Blind Auto", 0);
     autoChooser.addOption("3 Ball Auto w/ Vision", 1);
     autoChooser.addOption("3 Ball Auto w/ Vision + Intake", 2);
     SmartDashboard.putData(autoChooser);
 
-    if(ds.isDSAttached()) displayMatchInfo();
+    //if(ds.isDSAttached()) displayMatchInfo();
+    m_robotContainer.statusLED.setBufferColor(0, 255, 0);
   }
 
   @Override

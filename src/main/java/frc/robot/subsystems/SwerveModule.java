@@ -25,7 +25,7 @@ import frc.robot.lib.util.Gearbox;
 public class SwerveModule {
     
   // TODO: Tune these PID values for your robot
-  private static final double kDriveP = 0.33362;
+  private static final double kDriveP = 0.756;
   private static final double kDriveI = 0.0;
   private static final double kDriveD = 0.0;
   private static final double kDriveS = 0.47088;
@@ -162,6 +162,8 @@ public class SwerveModule {
     //+ driveFeedforward.calculate(state.speedMetersPerSecond)
     driveMotor.set(TalonFXControlMode.PercentOutput, 
     MathUtil.clamp(drivePID.calculate(getDriveMotorRate(), state.speedMetersPerSecond) , -1, 1));
+    SmartDashboard.putNumber("desiredOutput", state.speedMetersPerSecond);
+    SmartDashboard.putNumber("desiredOutput", state.speedMetersPerSecond);
   }
 
 }
