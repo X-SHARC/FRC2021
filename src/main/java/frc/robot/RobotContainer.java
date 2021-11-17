@@ -33,10 +33,10 @@ import frc.robot.subsystems.Climb;
 
 public class RobotContainer {
   // ! LED
-  WS2812Driver statusLED = new WS2812Driver(9, 14);
+  WS2812Driver statusLED = new WS2812Driver(4, 15);
+  LEDSubsystem LED = new LEDSubsystem();
   // !SUBSYSTEMS
   Swerve swerveDrivetrain = new Swerve(true);
-  LEDSubsystem LED = new LEDSubsystem();
   Climb climb = new Climb();
   Shooter shooter = new Shooter();
   Intake intake = new Intake();
