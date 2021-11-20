@@ -6,31 +6,29 @@ package frc.robot;
 
 /** Add your docs here. */
 public class RobotState {
-    private enum State {
+    public enum State {
         NO_TARGET,
+        VALID_TARGET,
         ALIGNING,
+        SPEEDING_UP,
         READY,
-        SPEEDINGUP,
-        SHOOTING,
         FAIL_ALIGN,
         TIMER,
-        ERROR
-    }
-    private enum MatchPeriod {
-        AUTONOMOUS,
-        TELEOP,
-        ENDGAME
+        ERROR,
+        DISABLED, 
+        SUCCESSFUL_ALIGN
     }
 
-    MatchPeriod matchPeriod;
-    State state;
+    private State state;
 
-    public RobotState(State state) {
+    public RobotState() {}
 
+    public RobotState.State getState() { return state;}
+
+    public void update(RobotState.State updatedState){
+        state = updatedState;
     }
 
-    public void setPeriod(MatchPeriod matchPeriod) {
-        this.matchPeriod = matchPeriod;
-    }
+
 
 }

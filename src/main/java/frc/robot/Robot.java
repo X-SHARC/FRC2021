@@ -16,6 +16,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
   private DriverStation ds;
+  private RobotState state = new RobotState();
+  public static int totalMatchTime = 150;
   //private Alliance allianceColor;
   //private int dsLocation;
 
@@ -49,13 +51,17 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    state.update(RobotState.State.DISABLED);
+    totalMatchTime = 150;
+  }
 
   @Override
   public void disabledPeriodic() {}
 
   @Override
   public void autonomousInit() {
+    totalMatchTime = 15;
     m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
 
     if (m_autonomousCommand != null) {
@@ -68,10 +74,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    totalMatchTime = 135;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_robotContainer.statusLED.setBufferColor(0, 255, 0);
   }
 
   @Override

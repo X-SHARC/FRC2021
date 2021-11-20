@@ -8,7 +8,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.RobotState;
 
 public class WS2812Driver extends SubsystemBase {
   private static AddressableLED m_led;
@@ -18,15 +21,17 @@ public class WS2812Driver extends SubsystemBase {
   int breathe = 255;
   boolean breatheReversed = false;
   int breatheH = 10;
+  int blinkCount = 0;
 
   public WS2812Driver(int dataPort, int ledLength) {
     m_led = new AddressableLED(dataPort);
     m_ledBuffer = new AddressableLEDBuffer(ledLength);
     m_led.setLength(m_ledBuffer.getLength());
 
-    setBufferColor(0, 0, 0);
+    //setColor(0, 0, 0);
     //toggleRGB();
-    //toggleRGB();
+    //breathe();
+    showPercentage(0.5);
     m_led.start();
   }
 
@@ -35,7 +40,7 @@ public class WS2812Driver extends SubsystemBase {
     //toggleRGB();
     //breathe();
   }
-  public static void setBufferColor(int r, int g, int b) {
+  public static void setColor(int r, int g, int b) {
 
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
         m_ledBuffer.setRGB(i, r, g, b);
@@ -44,7 +49,7 @@ public class WS2812Driver extends SubsystemBase {
 }
 
 public void turnOff() {
-    setBufferColor(0, 0, 0);
+    setColor(0, 0, 0);
     m_led.setData(m_ledBuffer);
 }
 
@@ -106,6 +111,45 @@ public void breathe(){
 
 }
 
+public void initialize(){
+
+}
+
+public void update(RobotState.State state){
+  switch(state){
+    case NO_TARGET:
+      setColor(255, 0, 0); //show red when theere is no target
+    case VALID_TARGET:
+      setColor(255, 106, 0); //show orange when there is target within range
+    case ALIGNING:
+      blink(0, 255, 0); //blink red when aligning
+    case SPEEDING_UP:
+      blink(0, 0, 255); //blink blue when shooter is speeding up
+    case READY:
+      toggleRGB();
+    case FAIL_ALIGN:
+      blink(255, 0, 0); //blink red when auto-align fails
+    case SUCCESSFUL_ALIGN:
+      setColor(0, 255, 0);
+    case TIMER:
+      double percentage = (DriverStation.getInstance().getMatchTime() / Robot.totalMatchTime);
+      if (!(percentage >= 0)) percentage = 0;
+      showPercentage(percentage); //shows the remaining time in the match
+    case ERROR:
+      blink(98, 0, 255); //blink purple when major error is encountered
+    case DISABLED:
+      breathe();
+  }
+}
+
+private void blink(int r, int g, int b) {
+  int blinkRate = 2;
+  if(blinkCount <= blinkRate) setColor(r, g, b);
+  else if ( blinkCount <= blinkRate*2) setColor(0, 0, 0);
+  blinkCount++;
+  if( blinkCount > 4 || blinkCount <= 0) blinkCount = 1;
+}
+
 public void symetricLaser(){
   /** [x,x,x,x,x,x,x,x,x]
    * [0,0,0,0,x,0,0,0,0]
@@ -118,13 +162,11 @@ public void symetricLaser(){
 }
 
 public void showPercentage(double percent) {
-  int LEDCount = (int) Math.round(percent * 8.);
-  int emptyLEDCount = 8 - LEDCount;
-
+  int LEDCount = (int) Math.round(percent * 7.);
+  int emptyLEDCount = 7 - LEDCount;
+  // x x x x x x
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-    if(i+1 <= emptyLEDCount || i+1 >= 15-emptyLEDCount) {
-      m_ledBuffer.setRGB(i, 153, 0, 0);
-    }
+    if(i+1 <= emptyLEDCount || i+1 >= 15-emptyLEDCount) m_ledBuffer.setRGB(i, 153, 0, 0);
     else m_ledBuffer.setRGB(i, 0, 153, 51);
   }
   m_led.setData(m_ledBuffer);
