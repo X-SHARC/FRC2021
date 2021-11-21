@@ -28,10 +28,11 @@ public class WS2812Driver extends SubsystemBase {
     m_ledBuffer = new AddressableLEDBuffer(ledLength);
     m_led.setLength(m_ledBuffer.getLength());
 
-    //setColor(0, 0, 0);
+    setColor(0, 0, 0);
     //toggleRGB();
     //breathe();
-    showPercentage(0.5);
+    //showPercentage(0.5);
+    //blink(0, 255, 0);
     m_led.start();
   }
 
@@ -39,6 +40,7 @@ public class WS2812Driver extends SubsystemBase {
   public void periodic() {
     //toggleRGB();
     //breathe();
+    //blink(0, 255, 0);
   }
   public static void setColor(int r, int g, int b) {
 
@@ -143,11 +145,11 @@ public void update(RobotState.State state){
 }
 
 private void blink(int r, int g, int b) {
-  int blinkRate = 2;
+  int blinkRate = 5;
   if(blinkCount <= blinkRate) setColor(r, g, b);
   else if ( blinkCount <= blinkRate*2) setColor(0, 0, 0);
   blinkCount++;
-  if( blinkCount > 4 || blinkCount <= 0) blinkCount = 1;
+  if( blinkCount > blinkRate*2 || blinkCount <= 0) blinkCount = 1;
 }
 
 public void symetricLaser(){
