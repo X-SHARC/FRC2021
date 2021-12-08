@@ -13,6 +13,7 @@ import frc.robot.commands.Swerve.SwerveDriveCommand;
 import frc.robot.commands.Swerve.TurnToAngle;
 import frc.robot.lib.drivers.WS2812Driver;
 import frc.robot.commands.Swerve.AutoAlign;
+import frc.robot.commands.Swerve.AutoAlignWithShooterSpeedUp;
 import frc.robot.commands.Swerve.DriveForDistance;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Vision;
@@ -60,6 +61,7 @@ public class RobotContainer {
   StorageAxisCommand storageAxisCommand = new StorageAxisCommand(operator, storage);
   FeederBackwards feederBackwards = new FeederBackwards(operator, feeder);
   AutoAlign autoAlign = new AutoAlign(vision, swerveDrivetrain, LED);
+  AutoAlignWithShooterSpeedUp autoAlignWithShooterSpeedUp = new AutoAlignWithShooterSpeedUp(vision,swerveDrivetrain,LED,shooter);
 
   // !AUTO COMMANDS
   BlindAuto blindAuto = new BlindAuto(swerveDrivetrain, feeder, storage, shooter);
@@ -126,7 +128,9 @@ public class RobotContainer {
     JoystickButton autoAim = new JoystickButton(driver, 5);
     autoAim.whileActiveOnce(autoAlign);
 
-
+    JoystickButton autoWithShoot = new JoystickButton(driver, 6);
+    autoWithShoot.whileHeld(autoAlignWithShooterSpeedUp.andThen(() -> shooter.setShooter(0.87)));
+    autoWithShoot.whenReleased(new RunCommand(()-> shooter.setShooter(0)));
   }
   // AUTO MODES
     // blindly shoot three balls and move forward
