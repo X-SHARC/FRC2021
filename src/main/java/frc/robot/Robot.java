@@ -16,7 +16,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
   private DriverStation ds;
-  private RobotState state = new RobotState();
+  public static RobotState state = new RobotState();
   public static int totalMatchTime = 150;
   //private Alliance allianceColor;
   //private int dsLocation;
