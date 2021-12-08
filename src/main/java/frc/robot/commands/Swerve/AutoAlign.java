@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Swerve;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDSubsystem;
@@ -18,6 +19,7 @@ public class AutoAlign extends CommandBase {
   Swerve swerve;
   LEDSubsystem led;
   double kP = 0.02;
+  double i_time;
 
   public AutoAlign(Vision vis, Swerve b, LEDSubsystem led) {
     this.vision = vis; 
@@ -31,7 +33,9 @@ public class AutoAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
     led.turnOn();
+    i_time = Timer.getFPGATimestamp();
 
   }
 
@@ -58,7 +62,7 @@ public class AutoAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (vision.hasTarget()) return (Math.abs(vision.getYaw()) < 1);
+    if (vision.hasTarget() ) return (Math.abs(vision.getYaw()) < 1 || i_time + 2 < Timer.getFPGATimestamp());
     else return false;
   }
 }

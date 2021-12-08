@@ -124,7 +124,7 @@ public class RobotContainer {
 
     //AUTO ALIGN
     JoystickButton autoAim = new JoystickButton(driver, 5);
-    autoAim.whileHeld(autoAlign);
+    autoAim.whileActiveOnce(autoAlign);
 
 
   }
