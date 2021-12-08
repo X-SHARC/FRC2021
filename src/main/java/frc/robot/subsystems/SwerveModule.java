@@ -160,10 +160,10 @@ public class SwerveModule {
     //current setup uses percent mode which should be OK for tele-op
     double feetPerSecond = Units.metersToFeet(state.speedMetersPerSecond);
     //+ driveFeedforward.calculate(state.speedMetersPerSecond)
-    driveMotor.set(TalonFXControlMode.PercentOutput, 
-    MathUtil.clamp(drivePID.calculate(getDriveMotorRate(), state.speedMetersPerSecond) , -1, 1));
-    SmartDashboard.putNumber("desiredOutput", state.speedMetersPerSecond);
-    SmartDashboard.putNumber("desiredOutput", state.speedMetersPerSecond);
+    //driveMotor.set(TalonFXControlMode.PercentOutput, driveFeedforward.calculate(state.speedMetersPerSecond));
+    driveMotor.set(TalonFXControlMode.PercentOutput, feetPerSecond / Constants.Swerve.kMaxSpeed);
+    SmartDashboard.putNumber("ffoutput", driveFeedforward.calculate(state.speedMetersPerSecond));
+    SmartDashboard.putNumber("speed", getDriveMotorRate());
   }
 
 }

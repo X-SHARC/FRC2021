@@ -83,7 +83,7 @@ public class RobotContainer {
 
     //SHOOTER
     JoystickButton shooterButton = new JoystickButton(operator, 3);
-    shooterButton.whenPressed(new RunCommand(()-> shooter.setShooter(1.0), shooter));
+    shooterButton.whenPressed(new RunCommand(()-> shooter.setShooter(0.87), shooter));
     shooterButton.whenReleased(new RunCommand(()-> shooter.setShooter(0.0), shooter));
 
     JoystickButton LEDButton = new JoystickButton(operator, 4);

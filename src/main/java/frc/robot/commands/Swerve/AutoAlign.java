@@ -17,7 +17,7 @@ public class AutoAlign extends CommandBase {
   Vision vision;
   Swerve swerve;
   LEDSubsystem led;
-  double kP = 0.0095;
+  double kP = 0.02;
 
   public AutoAlign(Vision vis, Swerve b, LEDSubsystem led) {
     this.vision = vis; 
@@ -58,7 +58,7 @@ public class AutoAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (vision.hasTarget()) return (Math.abs(vision.getYaw()) < 2);
+    if (vision.hasTarget()) return (Math.abs(vision.getYaw()) < 1);
     else return false;
   }
 }

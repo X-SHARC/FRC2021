@@ -21,15 +21,15 @@ public class WS2812Driver extends SubsystemBase {
   int breathe = 255;
   boolean breatheReversed = false;
   int breatheH = 10;
-  int blinkCount = 0;
+  int blinkCount = 0; 
 
   public WS2812Driver(int dataPort, int ledLength) {
     m_led = new AddressableLED(dataPort);
     m_ledBuffer = new AddressableLEDBuffer(ledLength);
     m_led.setLength(m_ledBuffer.getLength());
 
-    setColor(0, 0, 0);
-    //toggleRGB();
+    //setColor(0, 0, 0);
+    toggleRGB();
     //breathe();
     //showPercentage(0.5);
     //blink(0, 255, 0);
@@ -38,7 +38,7 @@ public class WS2812Driver extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //toggleRGB();
+    toggleRGB();
     //breathe();
     //blink(0, 255, 0);
   }
@@ -92,7 +92,6 @@ public void setRandom(){
 }
 
 public void breathe(){
-
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
     m_ledBuffer.setHSV(i, breatheH, 255, breathe); 
   }
@@ -114,7 +113,7 @@ public void breathe(){
 }
 
 public void initialize(){
-
+  // TODO decide if you want to have an init sequence everytime robot boots up
 }
 
 public void update(RobotState.State state){
@@ -145,7 +144,7 @@ public void update(RobotState.State state){
 }
 
 private void blink(int r, int g, int b) {
-  int blinkRate = 5;
+  int blinkRate = 6;
   if(blinkCount <= blinkRate) setColor(r, g, b);
   else if ( blinkCount <= blinkRate*2) setColor(0, 0, 0);
   blinkCount++;

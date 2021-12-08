@@ -31,7 +31,7 @@ public class SwerveDriveCommand extends CommandBase {
       this.joystick = joystick;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(sw);
-      fieldOriented =  false;
+      fieldOriented =  true;
     }
 
   // Called when the command is initially scheduled.
