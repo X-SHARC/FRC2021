@@ -29,6 +29,6 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
   public boolean getState(){
-    return led.get();
+    return led.getState();
   }
 }

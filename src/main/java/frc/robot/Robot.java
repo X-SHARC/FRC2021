@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    state.update(RobotState.State.ENABLED);
     totalMatchTime = 135;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();

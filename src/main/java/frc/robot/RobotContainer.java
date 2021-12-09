@@ -19,6 +19,7 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Vision;
 import frc.robot.commands.Auto.Auto3Ball;
 import frc.robot.commands.Auto.BlindAuto;
+import frc.robot.RobotState.State;
 import frc.robot.commands.ClimbPOV;
 import frc.robot.commands.FeedBall;
 import frc.robot.commands.FeederBackwards;
@@ -131,7 +132,7 @@ public class RobotContainer {
 
     JoystickButton autoWithShoot = new JoystickButton(driver, 6);
     autoWithShoot.whileHeld(autoAlignWithShooterSpeedUp.andThen(() -> shooter.setShooter(0.87)));
-    autoWithShoot.whenReleased(new RunCommand(()-> shooter.setShooter(0)));
+    autoWithShoot.whenReleased(new RunCommand(()-> shooter.setShooter(0)).andThen(() -> Robot.state.update(RobotState.State.ENABLED)));
   }
   // AUTO MODES
     // blindly shoot three balls and move forward

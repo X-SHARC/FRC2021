@@ -16,7 +16,8 @@ public class RobotState {
         TIMER,
         ERROR,
         DISABLED, 
-        SUCCESSFUL_ALIGN
+        SUCCESSFUL_ALIGN, 
+        ENABLED
     }
 
     private State state;

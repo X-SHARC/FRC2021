@@ -140,6 +140,8 @@ public void update(RobotState.State state){
       blink(98, 0, 255); //blink purple when major error is encountered
     case DISABLED:
       breathe();
+    case ENABLED:
+      setColor(255, 128, 0);
   }
 }
 
