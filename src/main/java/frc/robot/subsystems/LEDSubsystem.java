@@ -9,7 +9,7 @@ import frc.robot.lib.util.LED;
 
 public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
-  public LED led = new LED(3);
+  public LED led = new LED(8);
   public LEDSubsystem() {}
 
   @Override

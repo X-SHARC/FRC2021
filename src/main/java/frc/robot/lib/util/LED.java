@@ -21,8 +21,12 @@ public class LED {
         else led.set(true);
     }
 
-    public boolean get() {
+    public boolean getState() {
         return led.get();
+    }
+
+    public Solenoid get(){
+        return led;
     }
 
     public void turnOn(){

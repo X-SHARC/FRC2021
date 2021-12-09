@@ -34,7 +34,7 @@ import frc.robot.subsystems.Climb;
 
 public class RobotContainer {
   // ! LEDs
-  WS2812Driver statusLED = new WS2812Driver(4, 14);
+  WS2812Driver statusLED = new WS2812Driver(3, 14);
   LEDSubsystem LED = new LEDSubsystem();
   // !SUBSYSTEMS
   Swerve swerveDrivetrain = new Swerve(true);
@@ -127,6 +127,7 @@ public class RobotContainer {
     //AUTO ALIGN
     JoystickButton autoAim = new JoystickButton(driver, 5);
     autoAim.whileActiveOnce(autoAlign);
+    //autoAim.whileHeld(autoAlign);
 
     JoystickButton autoWithShoot = new JoystickButton(driver, 6);
     autoWithShoot.whileHeld(autoAlignWithShooterSpeedUp.andThen(() -> shooter.setShooter(0.87)));
