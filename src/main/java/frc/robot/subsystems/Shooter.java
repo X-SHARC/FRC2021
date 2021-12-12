@@ -26,13 +26,17 @@ public class Shooter extends SubsystemBase{
     public static WPI_TalonSRX slaveMotor;
     public Encoder shooterEncoder;
 
-    private double kP = 0.0000261; //proportional
+    double FFOutput;
+    double PIDOutput;
+    //0.00026167
+    //private double kP = 0.00009*2*1.9; //proportional
+    private double kP = 0.00045; //proportional
     private double kI = 0; //integral
     private double kD = 0.0; //derivative
-    public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1.49, 0.656, 0.00238);
+    public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1.4753, 0.031645, 0.011016);
     private PIDController pid = new PIDController(kP,kI,kD);
     
-    private double ENCODER_EDGES_PER_REV = 4096 / 4.;
+    private double ENCODER_EDGES_PER_REV = 1024;
     private double encoderConstant = (1 / ENCODER_EDGES_PER_REV);
     
     public Shooter(){
@@ -44,12 +48,12 @@ public class Shooter extends SubsystemBase{
 
         shooterEncoder = new Encoder(0, 1, false);
         shooterEncoder.setDistancePerPulse(encoderConstant);
+        slaveMotor.follow(masterMotor);
         
         pid.setTolerance(100);
     }
     public void setShooter(double percentage) {
-        masterMotor.setVoltage(percentage*13);
-        slaveMotor.setVoltage(percentage*13);
+        masterMotor.setVoltage(percentage);
     }
 
     public void runBackwards(){
@@ -72,11 +76,17 @@ public class Shooter extends SubsystemBase{
 
     // ? Feedforward
     public void setRPM(int rpm){
-        double FFOutput = feedforward.calculate(rpm);
-        double PIDOutput = pid.calculate(getRPM(), rpm);
-        SmartDashboard.putNumber("Shooter FF  Output", FFOutput);
+        FFOutput = feedforward.calculate(rpm);
+        PIDOutput = pid.calculate(getRPM(), rpm);        
+        masterMotor.set(PIDOutput);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Shooter RPM", getRPM());
+        SmartDashboard.putNumber("FF Output", FFOutput);
         SmartDashboard.putNumber("Shooter PID Output", PIDOutput);
-        setShooter(MathUtil.clamp(PIDOutput, -1, 1));
+
     }
 
     

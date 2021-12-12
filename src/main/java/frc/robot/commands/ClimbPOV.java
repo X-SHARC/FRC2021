@@ -28,21 +28,30 @@ public class ClimbPOV extends CommandBase {
       case 0:
         climb.climbUp();
         break;
-      case 45:
+      /*case 45:
         climb.rightUp();
         break;
       case 135:
         climb.rightDown();
-        break;
+        break;*/
       case 180:
         climb.climbDown();
         break;
-      case 225:
+      /*case 225:
         climb.leftDown();
         break;
+      
       case 315:
         climb.leftUp();
+        break;*/
+
+      case 90:
+        climb.rightDownSlow();
         break;
+      case 270:
+        climb.leftDownSlow();
+        break;
+
       default:
         climb.stop();
     }

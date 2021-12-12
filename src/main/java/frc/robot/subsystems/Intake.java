@@ -7,12 +7,15 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public WPI_TalonSRX intake = new WPI_TalonSRX(2);
+  public DoubleSolenoid intakeSolenoid = new DoubleSolenoid(0, 1);
 
   public Intake() {
     intake.setInverted(true);
@@ -24,14 +27,22 @@ public class Intake extends SubsystemBase {
   }
 
   public void intakeForward(){
-    intake.set(ControlMode.PercentOutput, 0.8);
+    intake.set(ControlMode.PercentOutput, 0.9);
   }
 
   public void intakeBackwards(){
-    intake.set(ControlMode.PercentOutput,  -0.8);
+    intake.set(ControlMode.PercentOutput,  -0.9);
   }
 
   public void stop(){
     intake.set(ControlMode.PercentOutput, 0);
+  }
+
+  public void intakeAhead(){
+    intakeSolenoid.set(Value.kForward);
+  }
+
+  public void intakeRetract(){
+    intakeSolenoid.set(Value.kReverse);
   }
 }

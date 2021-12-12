@@ -75,7 +75,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     
     swerveDrivetrain.setDefaultCommand(driveCommand);
+
     climb.setDefaultCommand(climbPOV);
+
+    new JoystickButton(operator, 8).whenPressed(new RunCommand(()-> intake.intakeAhead(), intake));
+    new JoystickButton(operator, 9).whenPressed(new RunCommand(()-> intake.intakeRetract(), intake));
+    
   
     //FEEDER + STORAGE TOGETHER
     JoystickButton feedBallButton = new JoystickButton(operator, 1);
@@ -83,8 +88,8 @@ public class RobotContainer {
 
     //SHOOTER
     JoystickButton shooterButton = new JoystickButton(operator, 3);
-    shooterButton.whenPressed(new RunCommand(()-> shooter.setShooter(0.87), shooter));
-    shooterButton.whenReleased(new RunCommand(()-> shooter.setShooter(0.0), shooter));
+    shooterButton.whenPressed(new RunCommand(()-> shooter.setShooter(9.5), shooter));
+    shooterButton.whenReleased(new RunCommand(()-> shooter.stop(), shooter));
 
     JoystickButton LEDButton = new JoystickButton(operator, 4);
     LEDButton.whenPressed(

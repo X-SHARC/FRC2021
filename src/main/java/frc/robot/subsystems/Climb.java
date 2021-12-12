@@ -21,29 +21,36 @@ public class Climb extends SubsystemBase {
   }
 
   public void climbUp(){
-    leftClimb.set(0.84);
-    rightClimb.set(0.84);
+    leftClimb.set(0.94);
+    rightClimb.set(0.94);
   }
 
   public void climbDown(){
-    leftClimb.set(-0.84);
-    rightClimb.set(-0.84);
+    leftClimb.set(-0.94);
+    rightClimb.set(-0.94);
   }
 
   public void rightUp(){
-    rightClimb.set(0.84);
+    rightClimb.set(0.94);
   }
 
   public void rightDown(){
-    rightClimb.set(-0.84);
+    rightClimb.set(-0.94);
   }
 
   public void leftUp(){
-    leftClimb.set(0.84);
+    leftClimb.set(0.94);
   }
 
   public void leftDown(){
-    leftClimb.set(-0.84);
+    leftClimb.set(-0.94);
+  }
+
+  public void leftDownSlow(){
+    leftClimb.set(-0.42);
+  }
+  public void rightDownSlow(){
+    rightClimb.set(-0.42);
   }
 
   public void stop(){
