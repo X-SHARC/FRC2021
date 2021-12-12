@@ -34,6 +34,8 @@ public class Robot extends TimedRobot {
 
     m_robotContainer = new RobotContainer();
 
+
+
     //if(!ds.isFMSAttached()) ds.silenceJoystickConnectionWarning(true);
 
     autoChooser.setDefaultOption("Blind Auto", 0);

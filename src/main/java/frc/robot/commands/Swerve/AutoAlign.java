@@ -17,12 +17,13 @@ public class AutoAlign extends CommandBase {
   Vision vision;
   Swerve swerve;
   LEDSubsystem led;
-  double kP = 0.045;
+  double kP = 0.009;
 
   public AutoAlign(Vision vis, Swerve b, LEDSubsystem led) {
     this.vision = vis; 
     this.swerve = b;    
     this.led = led;
+
     
     addRequirements(swerve, vision, led);
    // addRequirements(swerve, vision);
@@ -43,10 +44,17 @@ public class AutoAlign extends CommandBase {
       double rot = Constants.Swerve.kMaxAngularSpeed * (
       vision.getYaw() * kP
       );
+
       swerve.drive(0, 0, rot, false);
     }
+
+    if(!vision.hasTarget()) swerve.drive(0, 0, 0, true);
     else if(!led.getState()) led.turnOn();
+
+    System.out.println(vision.hasTarget());
   }
+
+
 
   // Called once the command ends or is interrupted.
   @Override
