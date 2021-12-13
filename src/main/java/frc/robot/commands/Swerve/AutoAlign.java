@@ -51,7 +51,6 @@ public class AutoAlign extends CommandBase {
     if(!vision.hasTarget()) swerve.drive(0, 0, 0, true);
     else if(!led.getState()) led.turnOn();
 
-    System.out.println(vision.hasTarget());
   }
 
 
