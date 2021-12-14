@@ -68,7 +68,6 @@ public class RobotContainer {
   
   public RobotContainer() {
     PortForwarder.add(5800, "photonvision.local", 5800);
-    LED.turnOn();
 
     configureButtonBindings();
   }
