@@ -6,7 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpiutil.net.PortForwarder;
 import frc.robot.commands.Swerve.SwerveDriveCommand;
@@ -129,8 +131,9 @@ public class RobotContainer {
 
     //AUTO ALIGN
     JoystickButton autoAim = new JoystickButton(driver, 5);
-    autoAim.whileHeld(autoAlign);
-
+    //autoAim.toggleWhenPressed(autoAlign);
+    autoAim.toggleWhenPressed(new ParallelCommandGroup(autoAlign, new StartEndCommand(()->shooter.setShooter(9.5), ()->shooter.setShooter(0), shooter)));
+    
 
   }
   // AUTO MODES
