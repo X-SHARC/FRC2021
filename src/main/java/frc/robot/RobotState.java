@@ -15,7 +15,8 @@ public class RobotState {
         FAIL_ALIGN,
         TIMER,
         ERROR,
-        DISABLED, 
+        DISABLED,
+        ENABLED, 
         SUCCESSFUL_ALIGN
     }
 
@@ -23,11 +24,14 @@ public class RobotState {
 
     public RobotState() {}
 
-    public RobotState.State getState() { return state;}
-
+    public RobotState.State getState() { 
+        if (state != null){return state;}
+        else {return State.DISABLED;}
+    }
     public void update(RobotState.State updatedState){
         state = updatedState;
     }
+
 
 
 

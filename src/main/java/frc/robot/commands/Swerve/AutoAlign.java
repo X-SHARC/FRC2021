@@ -11,6 +11,8 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotState;
 
 public class AutoAlign extends CommandBase {
   /** Creates a new AutoAlign. */
@@ -32,6 +34,7 @@ public class AutoAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Robot.state.update(RobotState.State.ALIGNING);
     led.turnOn();
 
   }
@@ -41,6 +44,7 @@ public class AutoAlign extends CommandBase {
   public void execute() {
 
     if(vision.hasTarget()){
+      Robot.state.update(RobotState.State.ALIGNING);
       double rot = Constants.Swerve.kMaxAngularSpeed * (
       vision.getYaw() * kP
       );
@@ -48,7 +52,11 @@ public class AutoAlign extends CommandBase {
       swerve.drive(0, 0, rot, false);
     }
 
-    if(!vision.hasTarget()) swerve.drive(0, 0, 0, true);
+    if(!vision.hasTarget()){
+      swerve.drive(0, 0, 0, true);
+      Robot.state.update(RobotState.State.NO_TARGET);
+    } 
+      
     else if(!led.getState()) led.turnOn();
 
   }
@@ -60,6 +68,7 @@ public class AutoAlign extends CommandBase {
   public void end(boolean interrupted) {
     swerve.drive(0, 0, 0, false);
     led.turnOff();
+    Robot.state.update(RobotState.State.ENABLED);
   }
 
   // Returns true when the command should end.
