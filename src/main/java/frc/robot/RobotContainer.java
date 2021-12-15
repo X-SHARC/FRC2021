@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
@@ -41,7 +42,7 @@ public class RobotContainer {
   Swerve swerveDrivetrain = new Swerve(true);
   Climb climb = new Climb();
   Shooter shooter = new Shooter();
-  Intake intake = new Intake();
+  static Intake intake = new Intake();
   Storage storage = new Storage();
   Feeder feeder = new Feeder(false);
   Vision vision = new Vision();
@@ -81,66 +82,72 @@ public class RobotContainer {
 
     climb.setDefaultCommand(climbPOV);
 
-    new JoystickButton(operator, 8).whenPressed(new RunCommand(()-> intake.intakeAhead(), intake));
-    new JoystickButton(operator, 9).whenPressed(new RunCommand(()-> intake.intakeRetract(), intake));
     
-  
+    
     //FEEDER + STORAGE TOGETHER
     JoystickButton feedBallButton = new JoystickButton(operator, 1);
     feedBallButton.whileHeld(feedBall);
-
+    
     //SHOOTER
     JoystickButton shooterButton = new JoystickButton(operator, 3);
-    shooterButton.whenPressed(new RunCommand(()-> shooter.setShooter(9.5), shooter));
+    shooterButton.whenPressed(new RunCommand(()-> shooter.setShooter(10), shooter));
     shooterButton.whenReleased(new RunCommand(()-> shooter.stop(), shooter));
-
+    
     JoystickButton LEDButton = new JoystickButton(operator, 4);
     LEDButton.whenPressed(
-    new RunCommand(
-      () -> LED.turnOn(),
-      LED)  
-    );
-    LEDButton.whenReleased(new RunCommand(
-      () -> LED.turnOff(),
-      LED)  );
+      new RunCommand(
+        () -> LED.turnOn(),
+        LED)  
+        );
+        LEDButton.whenReleased(new RunCommand(
+          () -> LED.turnOff(),
+          LED)  );
+          
+          //INTAKE
+          JoystickButton intakeOutButton = new JoystickButton(operator, 5);
+          JoystickButton intakeInButton = new JoystickButton(operator, 6);
+          
+          intakeInButton.whileHeld(new RunCommand(()-> intake.intakeForward() , intake));
+          intakeInButton.whenReleased(new RunCommand(()-> intake.stop() , intake));
+          
+          intakeOutButton.whileHeld(new RunCommand(()-> intake.intakeBackwards(), intake));
+          intakeOutButton.whenReleased(new RunCommand(()-> intake.stop(), intake));
+          
+          JoystickButton intakeAheadButton = new JoystickButton(operator, 9);
+          intakeAheadButton.whenPressed(new RunCommand(()-> intake.intakeAhead(), intake)).whenPressed(new InstantCommand(()->System.out.println("ahead")));;
 
-    //INTAKE
-    JoystickButton intakeOutButton = new JoystickButton(operator, 5);
-    JoystickButton intakeInButton = new JoystickButton(operator, 6);
-    
-    intakeInButton.whileHeld(new RunCommand(()-> intake.intakeForward() , intake));
-    intakeInButton.whenReleased(new RunCommand(()-> intake.stop() , intake));
-  
-    intakeOutButton.whileHeld(new RunCommand(()-> intake.intakeBackwards(), intake));
-    intakeOutButton.whenReleased(new RunCommand(()-> intake.stop(), intake));
 
-    storage.setDefaultCommand(storageAxisCommand);
-    /*JoystickButton storageBackwards = new JoystickButton(operator, 12);
-    storageBackwards.whileHeld(new RunCommand(()-> storage.bothBackward(), storage));
-    storageBackwards.whenReleased(new RunCommand(()-> storage.stop(), storage));*/
 
-    // FEEDER BACKWARDS 
-    feeder.setDefaultCommand(feederBackwards);
+          JoystickButton intakeRetractButton = new JoystickButton(operator, 10);
+          intakeRetractButton.whenPressed(new RunCommand(()-> intake.intakeRetract(), intake)).whenPressed(new InstantCommand(()->System.out.println("retract")));
 
-    //new JoystickButton(operator, 10).whileHeld(autoAlign);
-
-    //! DRIVER JOYSTICK
-    //STOP SWERVE
-    JoystickButton stopSwerve = new JoystickButton(driver, 4);
-    stopSwerve.whileHeld(new RunCommand(()-> swerveDrivetrain.drive(0, 0, 0, false), swerveDrivetrain));
-    //stopSwerve.whenReleased(new RunCommand(()-> swerveDrivetrain.setDefaultCommand(driveCommand), swerveDrivetrain));
-
-    //AUTO ALIGN
-    JoystickButton autoAim = new JoystickButton(driver, 5);
-    //autoAim.toggleWhenPressed(autoAlign);
-    autoAim.toggleWhenPressed(new ParallelCommandGroup(autoAlign, new StartEndCommand(()->shooter.setShooter(9.5), ()->shooter.setShooter(0), shooter)));
-    
-
-  }
-  // AUTO MODES
-    // blindly shoot three balls and move forward
-    //auto align & shoot & move
-    // auto align & shoot & move forward and back 
+          storage.setDefaultCommand(storageAxisCommand);
+          /*JoystickButton storageBackwards = new JoystickButton(operator, 12);
+          storageBackwards.whileHeld(new RunCommand(()-> storage.bothBackward(), storage));
+          storageBackwards.whenReleased(new RunCommand(()-> storage.stop(), storage));*/
+          
+          // FEEDER BACKWARDS 
+          feeder.setDefaultCommand(feederBackwards);
+          
+          //new JoystickButton(operator, 10).whileHeld(autoAlign);
+          
+          //! DRIVER JOYSTICK
+          //STOP SWERVE
+          JoystickButton stopSwerve = new JoystickButton(driver, 4);
+          stopSwerve.whileHeld(new RunCommand(()-> swerveDrivetrain.drive(0, 0, 0, false), swerveDrivetrain));
+          //stopSwerve.whenReleased(new RunCommand(()-> swerveDrivetrain.setDefaultCommand(driveCommand), swerveDrivetrain));
+          
+          //AUTO ALIGN
+          JoystickButton autoAim = new JoystickButton(driver, 5);
+          //autoAim.toggleWhenPressed(autoAlign);
+          autoAim.toggleWhenPressed(new ParallelCommandGroup(autoAlign, new StartEndCommand(()->shooter.setShooter(9.5), ()->shooter.setShooter(0), shooter)));
+          
+          
+        }
+        // AUTO MODES
+        // blindly shoot three balls and move forward
+        //auto align & shoot & move
+        // auto align & shoot & move forward and back 
     
     // TODO 
     // check shift mode 

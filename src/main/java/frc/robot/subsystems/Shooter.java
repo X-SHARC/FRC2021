@@ -30,7 +30,7 @@ public class Shooter extends SubsystemBase{
     double PIDOutput;
     //0.00026167
     //private double kP = 0.00009*2*1.9; //proportional
-    private double kP = 0.00045; //proportional
+    private double kP = 0.00055; //proportional
     private double kI = 0; //integral
     private double kD = 0.0; //derivative
     public SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1.4753, 0.031645, 0.011016);
