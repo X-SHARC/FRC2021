@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Storage;
 import frc.robot.subsystems.Swerve;
@@ -20,23 +21,25 @@ public class BlindAuto extends SequentialCommandGroup {
   Feeder feeder;
   Storage storage;
   Swerve swerve;
+  Intake intake;
   
   public BlindAuto(
     Swerve swerve,
     Feeder feeder,
     Storage storage,
-    Shooter shooter) {
+    Shooter shooter, Intake intake) {
 
     this.shooter = shooter;
     this.feeder = feeder;
     this.storage = storage;
     this.swerve = swerve;
+    this.intake = intake;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunCommand(()-> shooter.setShooter(1.0), shooter).withTimeout(3),
+      new RunCommand(()-> shooter.setShooter(12), shooter).withTimeout(3),
       new ParallelCommandGroup(
-        new RunCommand(()-> shooter.setShooter(1.0), shooter){
+        new RunCommand(()-> shooter.setShooter(10), shooter){
           @Override
           public void end(boolean interrupted) {
               // TODO Auto-generated method stub
@@ -59,8 +62,17 @@ public class BlindAuto extends SequentialCommandGroup {
               super.end(interrupted);
               storage.stop();
           }
+        },
+
+        new RunCommand(()-> intake.intakeBackwards(), intake){
+          @Override
+          public void end(boolean interrupted) {
+              // TODO Auto-generated method stub
+              intake.stop();
+          }
         }
-      ).withTimeout(5),
+
+      ).withTimeout(2.9),
       
       new RunCommand(()-> swerve.drive(0.4, 0, 0, false), swerve){
         @Override
@@ -68,7 +80,9 @@ public class BlindAuto extends SequentialCommandGroup {
           swerve.drive(0, 0, 0, false);
         }
     
-        }.withTimeout(3)
+        }.withTimeout(1.5)
+
+        
 
     );
   }

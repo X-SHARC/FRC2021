@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -25,6 +27,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Event Name", ds.getEventName());
     SmartDashboard.putNumber("Match Number", ds.getMatchNumber());
     SmartDashboard.putNumber("Time Remaining", ds.getMatchTime());
+
   }
 
   @Override
@@ -33,7 +36,7 @@ public class Robot extends TimedRobot {
     //this.dsLocation = ds.getLocation();
 
     m_robotContainer = new RobotContainer();
-
+    
 
 
     //if(!ds.isFMSAttached()) ds.silenceJoystickConnectionWarning(true);
@@ -63,12 +66,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    totalMatchTime = 15;
     m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
+    totalMatchTime = 15;
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    //RobotContainer.intake.intakeAhead();
+    //new RunCommand(()-> RobotContainer.intake.intakeAhead(), RobotContainer.intake).schedule();
+
   }
 
   @Override

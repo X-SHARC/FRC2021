@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
@@ -44,7 +45,7 @@ public class RobotContainer {
   Swerve swerveDrivetrain = new Swerve(true);
   Climb climb = new Climb();
   Shooter shooter = new Shooter();
-  Intake intake = new Intake();
+  static Intake intake = new Intake();
   Storage storage = new Storage();
   Feeder feeder = new Feeder(false);
   Vision vision = new Vision();
@@ -68,7 +69,7 @@ public class RobotContainer {
   ShooterSpeeds shooterSpeeds = new ShooterSpeeds(shooter, operator);
 
   // !AUTO COMMANDS
-  BlindAuto blindAuto = new BlindAuto(swerveDrivetrain, feeder, storage, shooter);
+  BlindAuto blindAuto = new BlindAuto(swerveDrivetrain, feeder, storage, shooter, intake);
   Auto3Ball auto3Ball = new Auto3Ball(shooter, feeder, storage, swerveDrivetrain, vision, LED);
   //Auto3BallIntakeDrop auto3BallIntake = new Auto3BallIntakeDrop(swerveDrivetrain, feeder, storage, shooter, autoAlign);
   
@@ -84,14 +85,12 @@ public class RobotContainer {
 
     climb.setDefaultCommand(climbPOV);
 
-    new JoystickButton(operator, 8).whenPressed(new RunCommand(()-> intake.intakeAhead(), intake));
-    new JoystickButton(operator, 9).whenPressed(new RunCommand(()-> intake.intakeRetract(), intake));
     
-  
+    
     //FEEDER + STORAGE TOGETHER
     JoystickButton feedBallButton = new JoystickButton(operator, 1);
     feedBallButton.whileHeld(feedBall);
-
+    
     //SHOOTER
     /*JoystickButton shooterButtonMid = new JoystickButton(operator, 3);
     //shooterButton.whenPressed(new RunCommand(()-> shooter.masterMotor.set(ControlMode.PercentOutput, 1.0), shooter));
@@ -172,7 +171,7 @@ public class RobotContainer {
         //return null;
       case 2:
         //return auto3BallIntake;
-        return null;
+        return auto3Ball;
       default:
         return blindAuto;
     }

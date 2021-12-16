@@ -19,7 +19,7 @@ public class AutoAlign extends CommandBase {
   Vision vision;
   Swerve swerve;
   LEDSubsystem led;
-  double kP = 0.039;
+  double kP = 0.016;
 
   public AutoAlign(Vision vis, Swerve b, LEDSubsystem led) {
     this.vision = vis; 
