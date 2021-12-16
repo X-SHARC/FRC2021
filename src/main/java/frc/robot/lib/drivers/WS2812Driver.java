@@ -50,7 +50,6 @@ public class WS2812Driver extends SubsystemBase {
         lastState = Robot.state.getState();
         update(Robot.state.getState());
       }
-    System.out.println(Robot.state.getState().name());
     //breathe();
     //blink(0, 255, 0);
   }
