@@ -29,10 +29,10 @@ public class ShooterSpeeds extends CommandBase {
   @Override
   public void execute() {
     if(operator.getTriggerAxis(Hand.kRight)>0.2){
-      shooter.setShooter(8.6);
+      shooter.setShooter(11.4);
     }
     else if(operator.getTriggerAxis(Hand.kLeft)>0.2){
-      shooter.setShooter(10.7);
+      shooter.setShooter(8.4);
     }
     else if(operator.getXButton()){
       shooter.setShooter(9.6);

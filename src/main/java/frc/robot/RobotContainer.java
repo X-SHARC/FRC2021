@@ -126,6 +126,11 @@ public class RobotContainer {
     intakeOutButton.whileHeld(new RunCommand(()-> intake.intakeBackwards(), intake));
     intakeOutButton.whenReleased(new RunCommand(()-> intake.stop(), intake));
 
+    JoystickButton intakeAheadButton = new JoystickButton(operator, 9);
+          intakeAheadButton.whenPressed(new RunCommand(()-> intake.intakeAhead(), intake));
+          JoystickButton intakeRetractButton = new JoystickButton(operator, 10);
+          intakeRetractButton.whenPressed(new RunCommand(()-> intake.intakeRetract(), intake));
+
     storage.setDefaultCommand(storageAxisCommand);
     /*JoystickButton storageBackwards = new JoystickButton(operator, 12);
     storageBackwards.whileHeld(new RunCommand(()-> storage.bothBackward(), storage));

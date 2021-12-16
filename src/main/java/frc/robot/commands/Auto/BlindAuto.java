@@ -37,9 +37,9 @@ public class BlindAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunCommand(()-> shooter.setShooter(12), shooter).withTimeout(3),
+      new RunCommand(()-> shooter.setShooter(12.1), shooter).withTimeout(3),
       new ParallelCommandGroup(
-        new RunCommand(()-> shooter.setShooter(10), shooter){
+        new RunCommand(()-> shooter.setShooter(12.1), shooter){
           @Override
           public void end(boolean interrupted) {
               // TODO Auto-generated method stub
