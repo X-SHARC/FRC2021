@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Event Name", ds.getEventName());
     SmartDashboard.putNumber("Match Number", ds.getMatchNumber());
     SmartDashboard.putNumber("Time Remaining", ds.getMatchTime());
+
   }
 
   @Override
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
     //this.dsLocation = ds.getLocation();
 
     m_robotContainer = new RobotContainer();
-
+    
 
 
     //if(!ds.isFMSAttached()) ds.silenceJoystickConnectionWarning(true);
@@ -65,6 +66,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
     totalMatchTime = 15;
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
 

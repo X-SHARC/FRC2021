@@ -65,7 +65,7 @@ public class RobotContainer {
   AutoAlign autoAlign = new AutoAlign(vision, swerveDrivetrain, LED);
 
   // !AUTO COMMANDS
-  BlindAuto blindAuto = new BlindAuto(swerveDrivetrain, feeder, storage, shooter);
+  BlindAuto blindAuto = new BlindAuto(swerveDrivetrain, feeder, storage, shooter, intake);
   Auto3Ball auto3Ball = new Auto3Ball(shooter, feeder, storage, swerveDrivetrain, vision, LED);
   //Auto3BallIntakeDrop auto3BallIntake = new Auto3BallIntakeDrop(swerveDrivetrain, feeder, storage, shooter, autoAlign);
   
@@ -139,8 +139,8 @@ public class RobotContainer {
           
           //AUTO ALIGN
           JoystickButton autoAim = new JoystickButton(driver, 5);
-          //autoAim.toggleWhenPressed(autoAlign);
-          autoAim.toggleWhenPressed(new ParallelCommandGroup(autoAlign, new StartEndCommand(()->shooter.setShooter(9.5), ()->shooter.setShooter(0), shooter)));
+          autoAim.toggleWhenPressed(autoAlign);
+          //SWITCH THIS autoAim.toggleWhenPressed(new ParallelCommandGroup(autoAlign, new StartEndCommand(()->shooter.setShooter(9.5), ()->shooter.setShooter(0), shooter)));
           
           
         }
@@ -166,7 +166,7 @@ public class RobotContainer {
         //return null;
       case 2:
         //return auto3BallIntake;
-        return null;
+        return auto3Ball;
       default:
         return blindAuto;
     }
