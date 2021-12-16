@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -25,6 +27,7 @@ import frc.robot.commands.FeedBall;
 import frc.robot.commands.FeederBackwards;
 import frc.robot.commands.ShootBallSubsystems;
 import frc.robot.commands.ShooterPID;
+import frc.robot.commands.ShooterSpeeds;
 import frc.robot.commands.StorageAxisCommand;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LEDSubsystem;
@@ -62,6 +65,7 @@ public class RobotContainer {
   StorageAxisCommand storageAxisCommand = new StorageAxisCommand(operator, storage);
   FeederBackwards feederBackwards = new FeederBackwards(operator, feeder);
   AutoAlign autoAlign = new AutoAlign(vision, swerveDrivetrain, LED);
+  ShooterSpeeds shooterSpeeds = new ShooterSpeeds(shooter, operator);
 
   // !AUTO COMMANDS
   BlindAuto blindAuto = new BlindAuto(swerveDrivetrain, feeder, storage, shooter);
@@ -89,11 +93,21 @@ public class RobotContainer {
     feedBallButton.whileHeld(feedBall);
 
     //SHOOTER
-    JoystickButton shooterButton = new JoystickButton(operator, 3);
-    shooterButton.whenPressed(new RunCommand(()-> shooter.setShooter(9.5), shooter));
-    shooterButton.whenReleased(new RunCommand(()-> shooter.stop(), shooter));
+    /*JoystickButton shooterButtonMid = new JoystickButton(operator, 3);
+    //shooterButton.whenPressed(new RunCommand(()-> shooter.masterMotor.set(ControlMode.PercentOutput, 1.0), shooter));
+    shooterButtonMid.whenPressed(new RunCommand(()-> shooter.setShooter(9.4), shooter));
+    shooterButtonMid.whenReleased(new RunCommand(()-> shooter.stop(), shooter));
 
-    JoystickButton LEDButton = new JoystickButton(operator, 4);
+    JoystickButton shooterButtonHigh = new JoystickButton(operator, 4);
+    shooterButtonHigh.whenPressed(new RunCommand(() ->shooter.setShooter(10.7), shooter));
+    shooterButtonHigh.whenReleased(new RunCommand(()-> shooter.stop(), shooter));
+
+    JoystickButton shooterButtonLow = new JoystickButton(operator, 2);
+    shooterButtonLow.whenPressed(new RunCommand(()-> shooter.setShooter(8.4), shooter));
+    shooterButtonLow.whenReleased(new RunCommand(()-> shooter.stop(), shooter));*/
+    shooter.setDefaultCommand(shooterSpeeds);
+
+    /*JoystickButton LEDButton = new JoystickButton(operator, 4);
     LEDButton.whenPressed(
     new RunCommand(
       () -> LED.turnOn(),
@@ -101,7 +115,7 @@ public class RobotContainer {
     );
     LEDButton.whenReleased(new RunCommand(
       () -> LED.turnOff(),
-      LED)  );
+      LED)  );*/
 
     //INTAKE
     JoystickButton intakeOutButton = new JoystickButton(operator, 5);
@@ -119,7 +133,7 @@ public class RobotContainer {
     storageBackwards.whenReleased(new RunCommand(()-> storage.stop(), storage));*/
 
     // FEEDER BACKWARDS 
-    feeder.setDefaultCommand(feederBackwards);
+    new JoystickButton(operator, 4).whileHeld(new RunCommand(()-> feeder.runBackwards(), feeder));
 
     //new JoystickButton(operator, 10).whileHeld(autoAlign);
 
@@ -132,8 +146,8 @@ public class RobotContainer {
     //AUTO ALIGN
     JoystickButton autoAim = new JoystickButton(driver, 5);
     //autoAim.toggleWhenPressed(autoAlign);
-    autoAim.toggleWhenPressed(new ParallelCommandGroup(autoAlign, new StartEndCommand(()->shooter.setShooter(9.5), ()->shooter.setShooter(0), shooter)));
-    
+    //autoAim.toggleWhenPressed(new ParallelCommandGroup(autoAlign, new StartEndCommand(()->shooter.setShooter(9.5), ()->shooter.setShooter(0), shooter)));
+    autoAim.toggleWhenPressed(autoAlign);
 
   }
   // AUTO MODES

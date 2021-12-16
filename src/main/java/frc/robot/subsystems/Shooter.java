@@ -52,8 +52,8 @@ public class Shooter extends SubsystemBase{
         
         pid.setTolerance(100);
     }
-    public void setShooter(double percentage) {
-        masterMotor.setVoltage(percentage);
+    public void setShooter(double voltage) {
+        masterMotor.setVoltage(voltage);
     }
 
     public void runBackwards(){

@@ -7,17 +7,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Storage;
+import frc.robot.subsystems.Shooter;
 
-public class StorageAxisCommand extends CommandBase {
-  /** Creates a new StorageAxisCommand. */
-  Storage storage;
+public class ShooterSpeeds extends CommandBase {
+  /** Creates a new ShooterSpeeds. */
+  Shooter shooter;
   XboxController operator;
-  public StorageAxisCommand(XboxController operator, Storage storage) {
-    this.storage = storage;
+
+  public ShooterSpeeds(Shooter shooter, XboxController operator) {
     this.operator = operator;
-    addRequirements(storage);
-    // Use addRequirements(add) here to declare subsystem dependencies.
+    this.shooter = shooter;
+    addRequirements(shooter);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -27,30 +28,24 @@ public class StorageAxisCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(operator.getX(Hand.kLeft)> 0.2){
-      storage.rightForward();
+    if(operator.getTriggerAxis(Hand.kRight)>0.2){
+      shooter.setShooter(8.6);
     }
-    else if(operator.getX(Hand.kLeft)< -0.2){
-      storage.leftForward();
+    else if(operator.getTriggerAxis(Hand.kLeft)>0.2){
+      shooter.setShooter(10.7);
     }
-    /*if(operator.getY(Hand.kLeft)>0.2){
-      storage.bothBackward();
+    else if(operator.getXButton()){
+      shooter.setShooter(9.6);
     }
-*/
-    else if(operator.getBButton()){
-      storage.bothBackward();
+    else{
+      shooter.stop();
     }
-
-    else{ 
-      storage.stop();
-    }
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    storage.stop();
+    shooter.stop();
   }
 
   // Returns true when the command should end.

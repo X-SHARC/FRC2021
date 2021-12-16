@@ -27,11 +27,11 @@ public class Intake extends SubsystemBase {
   }
 
   public void intakeForward(){
-    intake.set(ControlMode.PercentOutput, 0.9);
+    intake.set(ControlMode.PercentOutput, 0.85);
   }
 
   public void intakeBackwards(){
-    intake.set(ControlMode.PercentOutput,  -0.9);
+    intake.set(ControlMode.PercentOutput,  -0.75);
   }
 
   public void stop(){
