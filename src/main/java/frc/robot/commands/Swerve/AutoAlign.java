@@ -19,10 +19,14 @@ public class AutoAlign extends CommandBase {
   Vision vision;
   Swerve swerve;
   LEDSubsystem led;
-  //0.016
   double kP = 0.026;
+  double ki = 0;
+  double kd = 0;
+  PIDController pp = new PIDController(kP, ki, kd);
+
 
   public AutoAlign(Vision vis, Swerve b, LEDSubsystem led) {
+    pp.setTolerance(0.2);
     this.vision = vis; 
     this.swerve = b;    
     this.led = led;
@@ -43,14 +47,17 @@ public class AutoAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    
+    
     if(vision.hasTarget()){
-      Robot.state.update(RobotState.State.ALIGNING);
-      double rot = Constants.Swerve.kMaxAngularSpeed * (
-      vision.getYaw() * kP
-      );
-
-      swerve.drive(0, 0, rot, false);
+      /* Robot.state.update(RobotState.State.ALIGNING);
+      double rot = Constants.Swerve.kMaxAngularSpeed * (vision.getYaw() * kP);
+      
+      swerve.drive(0, 0, rot, false); */
+      pp.setSetpoint(0);
+      swerve.drive(0,0, -Constants.Swerve.kMaxAngularSpeed * pp.calculate( (
+        vision.getYaw())),false);
+      
     }
 
     if(!vision.hasTarget()){
@@ -74,7 +81,8 @@ public class AutoAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (vision.hasTarget()) return (Math.abs(vision.getYaw()) < 1);
+    //if (vision.hasTarget()) return (Math.abs(vision.getYaw()) < 0.3);
+    if (vision.hasTarget()) return pp.atSetpoint();
     else return false;
   }
 }

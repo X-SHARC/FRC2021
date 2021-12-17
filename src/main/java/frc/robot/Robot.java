@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    //RobotContainer.intake.intakeAhead();
+    RobotContainer.intake.intakeAhead();
     //new RunCommand(()-> RobotContainer.intake.intakeAhead(), RobotContainer.intake).schedule();
 
   }
